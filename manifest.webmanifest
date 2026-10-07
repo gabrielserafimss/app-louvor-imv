@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "IMV Louvor",
+  "short_name": "IMV Louvor",
+  "description": "Escalas, agenda, equipe e repertório do Ministério de Louvor da IMV.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/pwa-192-v9.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/imv-app-icon.svg?v=9",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

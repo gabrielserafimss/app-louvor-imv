@@ -1,0 +1,978 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505">
+<link rel="manifest" href="/manifest.webmanifest?v=8">
+<link rel="icon" href="/imv-app-icon.svg?v=8" type="image/svg+xml">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v9.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IMV Louvor">
+<title>IMV • Ministério de Louvor</title><style>:root{
+  --bg:#050505;--panel:#0d0d0d;--panel2:#121212;--line:#232323;--muted:#8e8e8e;--text:#fff;--soft:#d9d9d9;--white:#fff;--black:#000;--danger:#ff5a5a;--success:#74e08a;--warn:#ffd166;
+  --r:18px;--r2:12px;--shadow:0 20px 50px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit}
+body{min-height:100vh}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:12px}.tiny{font-size:11px}.strong{font-weight:800}.mono{font-variant-numeric:tabular-nums}.nowrap{white-space:nowrap}
+.app-shell{display:grid;grid-template-columns:260px 1fr;min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;border-right:1px solid var(--line);background:#070707;padding:24px 18px;display:flex;flex-direction:column;gap:22px}.brand{display:flex;align-items:center;gap:12px;padding:4px 6px 14px}.brand img{width:54px;height:54px;object-fit:contain}.brand-copy b{display:block;font-size:14px;letter-spacing:.13em}.brand-copy span{font-size:11px;color:var(--muted);letter-spacing:.1em}.nav{display:grid;gap:5px}.nav-btn{width:100%;border:0;background:transparent;color:#a5a5a5;padding:12px 13px;border-radius:11px;display:flex;gap:11px;align-items:center;text-align:left;font-weight:650}.nav-btn:hover,.nav-btn.active{background:#fff;color:#000}.nav-ico{width:19px;text-align:center}.sidebar-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:16px}.profile-mini{display:flex;gap:10px;align-items:center}.avatar{width:38px;height:38px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-weight:900;overflow:hidden;border:1px solid #333}.avatar img{width:100%;height:100%;object-fit:cover}.main{min-width:0}.topbar{height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;background:rgba(5,5,5,.92);backdrop-filter:blur(12px);z-index:20}.topbar h1{font-size:18px;margin:0}.top-actions{display:flex;gap:10px;align-items:center}.icon-btn,.ghost-btn,.primary-btn,.white-btn,.danger-btn{border-radius:11px;min-height:42px;padding:0 14px;border:1px solid var(--line);font-weight:750}.icon-btn{width:42px;padding:0;background:#0d0d0d;color:#fff}.ghost-btn{background:#0d0d0d;color:#fff}.primary-btn,.white-btn{background:#fff;color:#000;border-color:#fff}.danger-btn{background:transparent;color:#ff8585;border-color:#5a2525}.content{padding:28px;max-width:1540px;margin:0 auto}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px}.card.white{background:#fff;color:#000;border-color:#fff}.stat{min-height:126px;display:flex;flex-direction:column;justify-content:space-between}.stat-click{width:100%;text-align:left;color:inherit;cursor:pointer;transition:.18s;appearance:none;font:inherit}.stat-click:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(255,255,255,.08)}.lineup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.lineup-person{display:flex;align-items:center;gap:11px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0a0a0a}.lineup-person .avatar{flex:0 0 auto}.lineup-role{font-size:10px;color:#858585;text-transform:uppercase;letter-spacing:.08em}.lineup-name{font-size:13px;font-weight:800;margin-top:2px}.photo-preview{display:flex;gap:12px;align-items:center;padding:12px;border:1px dashed #333;border-radius:12px}.topbar-title{display:flex;align-items:center;gap:10px}.mobile-brand-mark{display:none}.mobile-brand-mark img{width:38px;height:38px;object-fit:contain}.stat .value{font-size:30px;font-weight:900}.stat .label{color:var(--muted);font-size:13px}.white .label{color:#5a5a5a}.section-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:15px}.section-head h2{margin:0;font-size:18px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:6px 9px;border-radius:999px;background:#171717;border:1px solid #282828;font-size:11px;color:#cfcfcf}.chip.white{background:#fff;color:#000;border-color:#fff}.chip.warn{color:#000;background:var(--warn);border-color:var(--warn)}.chip.danger{background:#2a1111;color:#ff9b9b;border-color:#4a1818}.chip.success{background:#0d2512;color:#9af0aa;border-color:#1b4822}
+.calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px}.calendar{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}.calendar-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}.calendar-title{font-weight:850;text-transform:capitalize}.cal-controls{display:flex;gap:8px}.cal-week,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}.cal-week div{padding:10px 8px;text-align:center;color:#777;font-size:11px;border-bottom:1px solid var(--line)}.day{min-height:120px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:9px;position:relative;transition:.2s}.day:nth-child(7n){border-right:0}.day:hover{background:#0f0f0f}.day.outside{opacity:.35}.day.today .day-num{background:#fff;color:#000}.day-num{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;margin-bottom:6px}.event-pill{border:1px solid #323232;background:#151515;border-radius:9px;padding:7px 8px;margin-top:5px;font-size:11px;line-height:1.3}.event-pill b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.event-pill .time{color:#aaa}.event-pill.alert{border-color:#5a2a2a;background:#211010}.agenda-list{display:grid;gap:10px}.agenda-item{padding:13px;border:1px solid var(--line);border-radius:12px;background:#0b0b0b}.agenda-date{font-size:11px;color:#888;margin-bottom:4px}.agenda-title{font-weight:750;font-size:13px}.agenda-meta{font-size:11px;color:#aaa;margin-top:5px}.side-panel{display:grid;gap:18px;align-content:start}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}.table{width:100%;border-collapse:collapse;min-width:760px}.table th,.table td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.table th{color:#888;font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:#0a0a0a}.table tr:last-child td{border-bottom:0}.member-cell{display:flex;align-items:center;gap:10px}.role-badge{font-size:10px;border:1px solid #333;border-radius:999px;padding:5px 8px;color:#bbb}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#a9a9a9;font-weight:700}.input,.select,.textarea{width:100%;background:#0a0a0a;color:#fff;border:1px solid #2b2b2b;border-radius:11px;min-height:44px;padding:10px 12px;outline:none}.textarea{min-height:110px;resize:vertical}.input:focus,.select:focus,.textarea:focus{border-color:#fff}.select option{background:#111}.checkbox-row{display:flex;gap:12px;flex-wrap:wrap}.check{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #2a2a2a;border-radius:10px;background:#0b0b0b;font-size:12px}.check input{accent-color:#fff}.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.74);display:grid;place-items:center;padding:18px;z-index:100}.modal{width:min(720px,100%);max-height:min(860px,92vh);overflow:auto;background:#0b0b0b;border:1px solid #292929;border-radius:20px;box-shadow:var(--shadow)}.modal-head{position:sticky;top:0;background:#0b0b0b;z-index:2;padding:19px 20px;border-bottom:1px solid #242424;display:flex;justify-content:space-between;align-items:center}.modal-body{padding:20px}.modal-actions{padding:16px 20px;border-top:1px solid #242424;display:flex;justify-content:flex-end;gap:10px}
+.notification-pop{position:fixed;right:22px;top:72px;width:min(390px,calc(100vw - 28px));max-height:68vh;overflow:auto;border:1px solid #292929;background:#0b0b0b;border-radius:16px;z-index:80;box-shadow:var(--shadow);padding:10px}.notif{padding:12px;border-radius:10px}.notif+.notif{border-top:1px solid #202020}.notif.unread{background:#121212}.notif-title{font-size:12px;font-weight:800}.notif-body{font-size:12px;color:#aaa;margin-top:4px;line-height:1.45}.badge-dot{position:absolute;transform:translate(17px,-15px);background:#fff;color:#000;border-radius:999px;min-width:18px;height:18px;padding:0 5px;display:grid;place-items:center;font-size:10px;font-weight:900}
+.song-layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px}.song-list{display:grid;gap:8px}.song-item{padding:12px;border:1px solid var(--line);border-radius:11px;background:#0a0a0a}.song-item.active{background:#fff;color:#000;border-color:#fff}.song-title{font-weight:800;font-size:13px}.song-meta{font-size:11px;color:#888;margin-top:3px}.song-item.active .song-meta{color:#555}.chord-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.key-badge{min-width:44px;text-align:center;padding:10px;border-radius:10px;background:#fff;color:#000;font-weight:900}.chord-sheet{white-space:pre-wrap;background:#080808;border:1px solid #232323;border-radius:14px;padding:20px;line-height:1.8;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:14px;min-height:430px}.chord{color:#fff;font-weight:900;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.empty{border:1px dashed #303030;border-radius:14px;padding:30px;text-align:center;color:#858585}.divider{height:1px;background:#202020;margin:18px 0}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.spacer{flex:1}.kpi-note{font-size:11px;color:#7a7a7a;margin-top:4px}
+.login-page{min-height:100vh;display:grid;grid-template-columns:1.15fr .85fr;background:#050505}.login-brand{display:flex;align-items:center;justify-content:center;padding:56px;position:relative;overflow:hidden;border-right:1px solid #1e1e1e}.login-brand:before{content:"";position:absolute;width:520px;height:520px;border:1px solid #222;border-radius:50%;left:-150px;bottom:-240px}.login-brand-inner{max-width:560px;position:relative;z-index:1}.login-logo{width:min(330px,75vw);display:block;margin-bottom:22px}.login-brand h1{font-size:44px;line-height:1.05;margin:0 0 14px;letter-spacing:-.03em}.login-brand p{color:#999;max-width:460px;line-height:1.6}.login-panel{display:flex;align-items:center;justify-content:center;padding:42px}.login-card{width:min(430px,100%)}.login-card h2{font-size:25px;margin:0 0 7px}.login-card .sub{font-size:13px;color:#888;margin-bottom:24px}.login-form{display:grid;gap:14px}.login-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}.link-btn{border:0;background:transparent;color:#ccc;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:12px}.demo-box{margin-top:18px;border:1px dashed #333;border-radius:12px;padding:12px;color:#888;font-size:11px;line-height:1.5}
+.toast-wrap{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:200;display:grid;gap:8px;width:min(460px,calc(100vw - 28px))}.toast{background:#fff;color:#000;padding:12px 14px;border-radius:11px;box-shadow:var(--shadow);font-size:12px;font-weight:700}.toast.error{background:#2a0d0d;color:#ffb1b1;border:1px solid #5a2323}.mobile-nav{display:none}
+@media(max-width:1100px){.grid-4{grid-template-columns:repeat(2,1fr)}.calendar-shell{grid-template-columns:1fr}.side-panel{grid-template-columns:repeat(2,1fr)}.song-layout{grid-template-columns:1fr}.song-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:780px){.app-shell{display:block}.sidebar{display:none}.topbar{height:64px;padding:0 12px}.topbar h1{font-size:14px}.mobile-brand-mark{display:flex;align-items:center}.lineup-grid{grid-template-columns:1fr}.content{padding:16px 14px 86px}.grid-4,.grid-3,.grid-2,.side-panel{grid-template-columns:1fr}.card{padding:16px;border-radius:15px}.calendar{border-radius:14px}.calendar-head{padding:14px}.cal-week div{font-size:9px;padding:8px 2px}.day{min-height:82px;padding:5px}.day-num{width:23px;height:23px;font-size:10px}.event-pill{padding:5px;font-size:9px}.event-pill .time{display:none}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal-backdrop{padding:0;align-items:end}.modal{width:100%;max-height:92vh;border-radius:20px 20px 0 0}.song-list{grid-template-columns:1fr}.login-page{grid-template-columns:1fr}.login-brand{min-height:38vh;padding:32px 24px;border-right:0;border-bottom:1px solid #1e1e1e}.login-logo{width:220px}.login-brand h1{font-size:30px}.login-brand p{font-size:13px}.login-panel{padding:28px 20px 44px}.mobile-nav{position:fixed;left:0;right:0;bottom:0;height:70px;padding:8px 10px max(8px,env(safe-area-inset-bottom));background:rgba(5,5,5,.96);backdrop-filter:blur(12px);border-top:1px solid #242424;z-index:60;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.mobile-nav button{border:0;background:transparent;color:#777;border-radius:10px;font-size:9px;display:grid;place-items:center;gap:2px}.mobile-nav button span{font-size:17px}.mobile-nav button.active{background:#fff;color:#000}.top-actions .ghost-btn{display:none}.notification-pop{top:58px;right:10px}.chord-sheet{font-size:12px;padding:14px;min-height:340px}.table{min-width:620px}}
+
+/* IMV mobile/auth refresh */
+html,body,#app{min-height:100%;min-height:100dvh}
+.splash-screen{position:fixed;inset:0;z-index:9999;min-height:100dvh;display:grid;place-items:center;overflow:hidden;background:#050505;padding:max(24px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left))}
+.splash-screen:before,.splash-screen:after{content:"";position:absolute;border-radius:50%;filter:blur(16px);pointer-events:none}
+.splash-screen:before{width:min(620px,130vw);height:min(620px,130vw);background:radial-gradient(circle,rgba(255,255,255,.12),rgba(120,120,120,.05) 38%,transparent 70%);animation:splashAura 1.8s ease-in-out both}
+.splash-screen:after{width:min(380px,92vw);height:min(380px,92vw);border:1px solid rgba(255,255,255,.10);box-shadow:0 0 80px rgba(255,255,255,.08),inset 0 0 65px rgba(255,255,255,.035);animation:splashRing 1.8s ease-in-out both}
+.splash-inner{position:relative;z-index:2;text-align:center;width:min(520px,100%)}
+.splash-logo{display:block;width:min(360px,82vw);max-height:260px;object-fit:contain;margin:0 auto 24px;filter:drop-shadow(0 18px 34px rgba(0,0,0,.8)) drop-shadow(0 0 18px rgba(255,255,255,.10));animation:splashLogo 1.8s cubic-bezier(.22,.8,.22,1) both}
+.splash-church{font-size:13px;letter-spacing:.19em;text-transform:uppercase;font-weight:800;color:#f2f2f2;animation:splashText 1.8s ease both}
+.splash-ministry{margin-top:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#777;animation:splashText 1.8s .08s ease both}
+@keyframes splashLogo{0%{opacity:0;transform:scale(.91);filter:blur(10px) drop-shadow(0 0 0 transparent)}30%{opacity:1;transform:scale(1);filter:blur(0) drop-shadow(0 20px 36px rgba(0,0,0,.82)) drop-shadow(0 0 18px rgba(255,255,255,.12))}72%{opacity:1;transform:scale(1.015)}100%{opacity:0;transform:scale(1.05);filter:blur(3px) drop-shadow(0 0 28px rgba(255,255,255,.05))}}
+@keyframes splashAura{0%,100%{opacity:0;transform:scale(.76)}35%,70%{opacity:1;transform:scale(1)}}
+@keyframes splashRing{0%,100%{opacity:0;transform:scale(.8)}35%,70%{opacity:.8;transform:scale(1)}}
+@keyframes splashText{0%,16%{opacity:0;transform:translateY(8px)}38%,72%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
+.auth-screen{min-height:100vh;min-height:100dvh;display:grid;place-items:center;background:radial-gradient(circle at 50% 18%,#171717 0,#090909 28%,#050505 66%);padding:max(30px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))}
+.auth-shell{width:min(430px,100%);display:grid;gap:24px}
+.auth-brand{text-align:center}
+.auth-logo{display:block;width:min(300px,78vw);height:auto;max-height:none;object-fit:contain;margin:0 auto 14px;filter:drop-shadow(0 14px 28px rgba(0,0,0,.75))}
+.auth-church{font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:#ddd}
+.auth-card{background:rgba(13,13,13,.92);border:1px solid #242424;border-radius:22px;padding:26px;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.auth-card h1{font-size:24px;margin:0 0 7px;letter-spacing:-.02em}
+.auth-card .auth-sub{font-size:13px;color:#888;line-height:1.55;margin:0 0 22px}
+.auth-card .login-form{gap:13px}
+.auth-card .input{min-height:50px;border-radius:13px;padding:0 14px;font-size:16px;background:#080808}
+.auth-card .white-btn{min-height:50px;border-radius:13px;font-size:13px;letter-spacing:.04em;margin-top:3px}
+.password-rules{font-size:11px;color:#777;line-height:1.55;margin-top:3px}
+.mobile-calendar-list{display:none}
+.calendar-create-top{white-space:nowrap}
+@media(max-width:780px){
+  body{font-size:15px}
+  .topbar{height:calc(66px + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  .topbar h1{font-size:16px}
+  .mobile-brand-mark img{width:42px;height:42px}
+  .content{padding:18px max(16px,env(safe-area-inset-right)) calc(98px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+  .card{padding:18px;border-radius:17px}
+  .section-head h2{font-size:18px}
+  .input,.select,.textarea{font-size:16px;min-height:50px}
+  .ghost-btn,.primary-btn,.white-btn,.danger-btn{min-height:46px}
+  .agenda-item{padding:15px;border-radius:14px}
+  .agenda-date{font-size:12px;line-height:1.45}
+  .agenda-title{font-size:15px;line-height:1.35}
+  .agenda-meta{font-size:12px;line-height:1.5}
+  .calendar-head{padding:16px;gap:13px;align-items:flex-start;flex-wrap:wrap}
+  .calendar-title{font-size:19px;margin-top:3px}
+  .cal-controls{width:100%;display:grid;grid-template-columns:46px 1fr 46px;gap:8px}
+  .cal-controls .calendar-create-top{grid-column:1/-1;grid-row:2}
+  .cal-controls button{min-height:46px}
+  .cal-week,.cal-grid{display:none}
+  .mobile-calendar-list{display:grid;gap:10px;padding:14px}
+  .mobile-calendar-month{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.09em;padding:2px 2px 4px}
+  .calendar-shell>.side-panel{display:none}
+  .mobile-nav{height:calc(72px + env(safe-area-inset-bottom));padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+  .mobile-nav button{font-size:10px}
+  .mobile-nav button span{font-size:19px}
+  .modal{max-height:94dvh}
+  .auth-screen{align-items:center;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+  .auth-shell{gap:18px}
+  .auth-logo{width:min(230px,68vw);margin-bottom:10px}
+  .auth-card{padding:22px 18px;border-radius:20px}
+  .auth-card h1{font-size:23px}
+}
+@media(max-width:380px){
+  .content{padding-left:12px;padding-right:12px}
+  .topbar{padding-left:10px;padding-right:10px}
+  .card{padding:15px}
+  .auth-card{padding:20px 16px}
+}
+
+@media(max-width:780px){
+  html,body,#app{width:100%;height:100%;height:100dvh;min-height:0;overflow:hidden;overscroll-behavior:none}
+  body{position:fixed;inset:0}
+  .app-shell{position:relative;display:block;width:100%;height:100%;height:100dvh;min-height:0;overflow:hidden}
+  .main{height:100%;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  .topbar{position:relative;top:auto;flex:0 0 auto}
+  .content{flex:1 1 auto;min-height:0;width:100%;max-width:none;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
+  .mobile-nav{position:absolute;left:0;right:0;bottom:0}
+}
+
+
+.profile-photo-picker{display:flex;align-items:center;gap:14px;padding:14px;border:1px dashed #333;border-radius:16px;background:#090909;cursor:pointer;transition:.18s}
+.profile-photo-picker:hover{border-color:#666;background:#0d0d0d}
+.profile-photo-picker input{display:none}
+.avatar.avatar-lg{width:82px;height:82px;font-size:22px;flex:0 0 auto}
+.photo-picker-copy b{display:block;font-size:13px}.photo-picker-copy span{display:block;margin-top:4px;font-size:11px;color:#858585;line-height:1.45}
+.schedule-groups{display:grid;gap:14px}
+.schedule-group{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#080808}
+.schedule-group-head{padding:12px 14px;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#d8d8d8}
+.schedule-slot{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center;padding:12px 14px}
+.schedule-slot+.schedule-slot{border-top:1px solid #1c1c1c}
+.schedule-slot-name{font-size:12px;font-weight:850}
+.schedule-slot .select{min-height:44px}
+.leader-badge{display:inline-flex;align-items:center;margin-top:5px;padding:4px 7px;border-radius:999px;background:#fff;color:#000;font-size:9px;font-weight:900;letter-spacing:.04em}
+.onboarding-age{font-size:11px;color:#888;margin-top:4px}
+@media(max-width:780px){.schedule-slot{grid-template-columns:1fr;gap:7px}.profile-photo-picker{align-items:center}.avatar.avatar-lg{width:74px;height:74px}}
+
+@media(prefers-reduced-motion:reduce){
+  .splash-logo,.splash-screen:before,.splash-screen:after,.splash-church,.splash-ministry{animation-duration:.01ms!important}
+}
+
+</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head><body><div id="app"></div><script>window.IMV_CONFIG={SUPABASE_URL:"https://adrywvwyocdgrwcsgwpu.supabase.co",SUPABASE_ANON_KEY:"sb_publishable_j-YVzFiwVb20s-RIqBjdkQ_7dPB8Qqg",APP_URL:"https://imv-louvor-v1.onrender.com"};</script><script>/* IMV • Ministério de Louvor — V1 */
+(() => {
+  'use strict';
+
+  const CFG = window.IMV_CONFIG || {};
+  const isSupabaseConfigured = /^https:\/\//.test(CFG.SUPABASE_URL || '') && !(CFG.SUPABASE_URL || '').includes('__SUPABASE_');
+  const supabaseClient = isSupabaseConfigured && window.supabase
+    ? window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      })
+    : null;
+
+  const uid = () => (crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`);
+  const isoDate = d => {
+    const x = new Date(d); x.setMinutes(x.getMinutes() - x.getTimezoneOffset()); return x.toISOString().slice(0,10);
+  };
+  const fmtDate = value => new Intl.DateTimeFormat('pt-BR', {weekday:'short', day:'2-digit', month:'short'}).format(new Date(`${value}T12:00:00`));
+  const fmtFullDate = value => new Intl.DateTimeFormat('pt-BR', {weekday:'long', day:'2-digit', month:'long', year:'numeric'}).format(new Date(`${value}T12:00:00`));
+  const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  const roleLabel = {admin:'Administrador', minister:'Ministro', leader:'Líder', member:'Membro'};
+  const eventTypes = ['Terça-feira','Domingo • Manhã','Domingo • Noite','BRAVE','Culto de Mulheres','Outro'];
+  const functionsCatalog = ['Ministro','Back Vocal','Violão','Guitarra','Baixo','Bateria','Teclado','Mesa de Som','Projeção','Mídia'];
+  const scheduleGroups = [
+    {id:'instrumentos',label:'Instrumentistas',slots:['Violão','Guitarra','Baixo','Bateria','Teclado']},
+    {id:'vocais',label:'Vocais',slots:['Ministro','Back 1','Back 2']},
+    {id:'tecnica',label:'Técnica & Mídia',slots:['Mesa de Som','Projeção','Mídia']}
+  ];
+  const coreEventSlots = scheduleGroups.flatMap(g=>g.slots);
+  const eventSlotsCatalog = [...coreEventSlots];
+  const slotFunction = slot => ({'Back 1':'Back Vocal','Back 2':'Back Vocal'}[slot] || slot);
+  const navItems = [
+    ['dashboard','⌂','Início'], ['calendar','□','Agenda'], ['team','◎','Equipe'], ['availability','−','Indisponibilidade'], ['songs','♬','Repertório'], ['notifications','○','Avisos']
+  ];
+
+  const routeByView = {
+    dashboard:'inicio',
+    calendar:'agenda',
+    team:'equipe',
+    availability:'indisponibilidade',
+    songs:'musicas',
+    notifications:'avisos',
+    profile:'perfil'
+  };
+  const viewByRoute = Object.fromEntries(Object.entries(routeByView).map(([view,route])=>[route,view]));
+
+  function cleanTrackingParams(){
+    try{
+      const url=new URL(window.location.href);
+      ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k=>url.searchParams.delete(k));
+      const clean=url.pathname+(url.searchParams.toString()?'?'+url.searchParams.toString():'')+url.hash;
+      history.replaceState(history.state,'',clean);
+    }catch(_){}
+  }
+  function viewFromLocation(){
+    const route=(window.location.hash||'').replace(/^#\/?/,'').split('/')[0].toLowerCase();
+    return viewByRoute[route]||'dashboard';
+  }
+  function syncViewUrl(view,{replace=false}={}){
+    const route=routeByView[view]||routeByView.dashboard;
+    const hash='#/'+route;
+    if(window.location.hash===hash)return;
+    const base=window.location.pathname+window.location.search;
+    if(replace)history.replaceState({view},'',base+hash);
+    else history.pushState({view},'',base+hash);
+  }
+  function navigateView(view,{replace=false}={}){
+    const allowed=routeByView[view]?view:'dashboard';
+    state.view=allowed;
+    state.notificationOpen=false;
+    state.modal=null;
+    syncViewUrl(allowed,{replace});
+    render();
+  }
+
+  const demoMembers = [
+    {id:'gabriel',name:'Gabriel',email:'gabriel@demo.local',phone:'',role:'admin',functions:['Ministro','Back Vocal','Vocal','Violão'],active:true,avatar_url:''},
+    {id:'rodrigo',name:'Rodrigo',email:'rodrigo@demo.local',phone:'',role:'admin',functions:['Bateria','Som'],active:true,avatar_url:''},
+    {id:'leo',name:'Leo',email:'leo@demo.local',phone:'',role:'admin',functions:['Guitarra','Violão'],active:true,avatar_url:''},
+    {id:'nilma',name:'Nilma',email:'nilma@demo.local',phone:'',role:'admin',functions:['Back Vocal','Vocal','Teclado'],active:true,avatar_url:''},
+    {id:'sofia',name:'Sofia',email:'sofia@demo.local',phone:'',role:'admin',functions:['Back Vocal','Vocal','Mídia','Letra'],active:true,avatar_url:''},
+    ...Array.from({length:8}, (_,i) => ({id:`demo-${i+1}`,name:`Membro exemplo ${String(i+1).padStart(2,'0')}`,email:`membro${i+1}@demo.local`,phone:'',role:'member',functions:[["Back Vocal"],["Baixo"],["Bateria"],["Teclado"],["Guitarra"],["Violão"],["Som"],["Mídia"]][i],active:true,avatar_url:''}))
+  ];
+
+  const now = new Date();
+  const nextTue = new Date(now); nextTue.setDate(now.getDate() + ((2 - now.getDay() + 7) % 7 || 7));
+  const nextSun = new Date(now); nextSun.setDate(now.getDate() + ((0 - now.getDay() + 7) % 7 || 7));
+
+  const demoEvents = [
+    {id:'evt-1',title:'Culto de Terça',event_type:'Terça-feira',event_date:isoDate(nextTue),time_start:'19:30',time_end:'21:00',location:'IMV',minister_id:'gabriel',created_by:'gabriel',status:'published',required_functions:['Ministro','Violão','Guitarra','Baixo','Bateria','Teclado','Back 1','Back 2','Som','Letra','Mídia'],assignments:[]},
+    {id:'evt-2',title:'Culto de Domingo • Noite',event_type:'Domingo • Noite',event_date:isoDate(nextSun),time_start:'19:00',time_end:'21:00',location:'IMV',minister_id:'nilma',created_by:'nilma',status:'draft',required_functions:['Ministro','Violão','Guitarra','Baixo','Bateria','Teclado','Back 1','Back 2','Som','Letra','Mídia'],assignments:[]}
+  ];
+
+  const demoSongs = [
+    {id:'song-1',title:'Bondade de Deus',artist:'',default_key:'G',lyrics:`G                 C\nEu amo a Ti, Tua graça nunca falha\nG                 Em          D\nTodos os dias eu estou em Tuas mãos\n\nC                G\nDesde quando me levanto\nEm             D\nAté eu me deitar\nC           D            G\nEu cantarei da bondade de Deus`},
+    {id:'song-2',title:'Santo Pra Sempre',artist:'',default_key:'D',lyrics:`D                   G\nMil gerações se prostrando em louvor\nBm                 A\nCantam ao Cordeiro uma canção\nG                  D\nTodos que em Ti vieram antes de nós\nBm                    A\nE os que crerão cantarão`}
+  ];
+
+  const state = {
+    view:'dashboard', session:null, user:null, members:[], events:[], unavailability:[], songs:[], notifications:[], eventSongs:[],
+    calendarCursor:new Date(now.getFullYear(), now.getMonth(), 1), selectedSong:null, songKey:null, notificationOpen:false, demo:!isSupabaseConfigured,
+    modal:null, splash:true, mustChangePassword:false
+  };
+
+  const store = {
+    loadDemo(){
+      const raw = localStorage.getItem('imv-louvor-demo-v1');
+      if(raw){
+        try { Object.assign(state, JSON.parse(raw)); state.calendarCursor = new Date(state.calendarCursor); return; } catch(_){}
+      }
+      state.user=demoMembers[0]; state.members=demoMembers; state.events=demoEvents; state.songs=demoSongs;
+      state.notifications=[
+        {id:'n1',recipient_id:'gabriel',title:'V1 pronta para testar',body:'Clique em um dia da agenda para criar um evento e testar a autoescala.',read:false,created_at:new Date().toISOString()}
+      ];
+    },
+    saveDemo(){
+      if(!state.demo) return;
+      const data={...state,modal:null,notificationOpen:false};
+      localStorage.setItem('imv-louvor-demo-v1',JSON.stringify(data));
+    }
+  };
+
+  function can(action){
+    const r=state.user?.role;
+    if(r==='admin') return true;
+    const map={
+      create_event:['minister','leader'], edit_event:['minister','leader'], manage_team:[], manage_songs:['minister','leader'],
+      auto_schedule:['minister','leader'], view_all:['minister','leader','member']
+    };
+    return (map[action]||[]).includes(r);
+  }
+
+  function initials(name=''){return name.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'IM';}
+  function avatar(member,size=''){return member?.avatar_url ? `<div class="avatar ${size}"><img src="${esc(member.avatar_url)}" alt=""></div>` : `<div class="avatar ${size}">${esc(initials(member?.name))}</div>`;}
+  function findMember(id){return state.members.find(m=>m.id===id);}
+  function memberName(id){return findMember(id)?.name || 'Não definido';}
+  function visibleEvents(){return state.events.filter(e=>e.status!=='cancelled');}
+  function eventAssignments(e){return e.assignments || [];}
+  function ageFromBirth(value){if(!value)return null;const b=new Date(value+'T12:00:00'),n=new Date();let age=n.getFullYear()-b.getFullYear();const m=n.getMonth()-b.getMonth();if(m<0||(m===0&&n.getDate()<b.getDate()))age--;return age;}
+  function birthdayMembers(){const n=new Date(),key=`${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;return state.members.filter(m=>m.active!==false&&m.birth_date&&m.birth_date.slice(5)===key);}
+  function unreadCount(){return state.notifications.filter(n=>n.recipient_id===state.user?.id && !n.read).length;}
+
+  function firstAccessDraftKey(){return `imv-first-access-draft:${state.user?.id||'anonymous'}`;}
+  function loadFirstAccessDraft(){
+    try{return JSON.parse(localStorage.getItem(firstAccessDraftKey())||'{}')||{};}catch(_){return {};}
+  }
+  function saveFirstAccessDraft(patch={}){
+    try{
+      const current=loadFirstAccessDraft();
+      localStorage.setItem(firstAccessDraftKey(),JSON.stringify({...current,...patch,updated_at:new Date().toISOString()}));
+    }catch(err){console.warn('Não foi possível salvar o rascunho local.',err);}
+  }
+  function clearFirstAccessDraft(){try{localStorage.removeItem(firstAccessDraftKey());}catch(_){}}
+  function setAvatarPreview(el,dataUrl,name=''){
+    if(!el)return;
+    if(dataUrl) el.innerHTML=`<img src="${esc(dataUrl)}" alt="Foto de perfil">`;
+    else el.textContent=initials(name);
+  }
+  async function avatarFileToDataUrl(file){
+    if(!file)return '';
+    if(file.size>10*1024*1024) throw new Error('Use uma foto de até 10 MB.');
+    const raw=await fileToDataUrl(file);
+    return await new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>{
+        try{
+          const max=720;
+          const scale=Math.min(1,max/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height));
+          const w=Math.max(1,Math.round((img.naturalWidth||img.width)*scale));
+          const h=Math.max(1,Math.round((img.naturalHeight||img.height)*scale));
+          const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+          const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);
+          resolve(canvas.toDataURL('image/jpeg',.82));
+        }catch(err){reject(err);}
+      };
+      img.onerror=()=>reject(new Error('Não foi possível ler essa foto.'));
+      img.src=raw;
+    });
+  }
+
+  function toast(msg,type=''){const el=document.createElement('div');el.className=`toast ${type}`;el.textContent=msg;document.querySelector('.toast-wrap')?.appendChild(el);setTimeout(()=>el.remove(),3500);}
+
+  async function init(){
+    cleanTrackingParams();
+    state.view=viewFromLocation();
+    window.addEventListener('hashchange',()=>{
+      const next=viewFromLocation();
+      if(next!==state.view){
+        state.view=next;
+        state.notificationOpen=false;
+        state.modal=null;
+        render();
+      }
+    });
+    window.addEventListener('popstate',()=>{
+      const next=viewFromLocation();
+      if(next!==state.view){
+        state.view=next;
+        state.notificationOpen=false;
+        state.modal=null;
+        render();
+      }
+    });
+    render();
+    if(supabaseClient){
+      const {data:{session}}=await supabaseClient.auth.getSession();
+      state.session=session;
+      if(session) await loadRemoteState(session.user);
+      supabaseClient.auth.onAuthStateChange(async (_event,session2)=>{
+        state.session=session2;
+        if(session2){
+          await loadRemoteState(session2.user);
+        }else{
+          state.user=null; state.members=[]; state.events=[]; state.notifications=[]; state.mustChangePassword=false;
+        }
+        render();
+      });
+    }
+    await new Promise(resolve=>setTimeout(resolve,1650));
+    state.splash=false;
+    if(!window.location.hash) syncViewUrl(state.view,{replace:true});
+    render();
+  }
+
+  async function loadRemoteState(authUser){
+    state.demo=false;
+    const [profiles,events,assignments,unav,songs,notifs,eventSongs] = await Promise.all([
+      supabaseClient.from('profiles').select('*').order('name'),
+      supabaseClient.from('events').select('*').order('event_date'),
+      supabaseClient.from('event_assignments').select('*'),
+      supabaseClient.from('unavailability').select('*'),
+      supabaseClient.from('songs').select('*').order('title'),
+      supabaseClient.from('notifications').select('*').eq('recipient_id',authUser.id).order('created_at',{ascending:false}).limit(100),
+      supabaseClient.from('event_songs').select('*').order('position')
+    ]);
+    const err=[profiles,events,assignments,unav,songs,notifs,eventSongs].find(x=>x.error)?.error;
+    if(err){ console.error(err); toast('Falha ao carregar alguns dados do Supabase.','error'); }
+    state.members=profiles.data||[];
+    state.user=state.members.find(x=>x.id===authUser.id) || {id:authUser.id,name:authUser.user_metadata?.name||authUser.email,email:authUser.email,role:'member',functions:[],must_change_password:true};
+    state.mustChangePassword=!!state.user.must_change_password;
+    state.events=(events.data||[]).map(e=>({...e,assignments:(assignments.data||[]).filter(a=>a.event_id===e.id)}));
+    state.unavailability=unav.data||[]; state.songs=songs.data||[]; state.notifications=notifs.data||[]; state.eventSongs=eventSongs.data||[];
+    if(state.user?.onboarding_complete){
+      await ensureBirthdayAlert();
+      if(state.user.role==='admin') await ensureRollingSchedule({silent:true});
+    }
+  }
+
+  function render(){
+    const app=document.getElementById('app');
+    if(state.splash){ app.innerHTML=splashTemplate(); return; }
+    if(!state.user){ app.innerHTML=loginTemplate(); bindLogin(); return; }
+    if(state.mustChangePassword || !state.user.onboarding_complete){ app.innerHTML=firstAccessTemplate(); bindFirstAccess(); return; }
+    app.innerHTML=shellTemplate(); bindShell();
+  }
+
+  function splashTemplate(){
+    return `<div class="splash-screen"><div class="splash-inner">
+      <img class="splash-logo" src="/imv-logo.svg" alt="Igreja Metodista Valentim">
+      <div class="splash-church">Igreja Metodista Valentim</div>
+      <div class="splash-ministry">Ministério de Louvor</div>
+    </div></div>`;
+  }
+
+  function loginTemplate(){
+    return `<main class="auth-screen"><div class="auth-shell">
+      <div class="auth-brand">
+        <img class="auth-logo" src="/imv-logo.svg" alt="Igreja Metodista Valentim">
+        <div class="auth-church">Igreja Metodista Valentim</div>
+      </div>
+      <section class="auth-card">
+        <h1>Entrar</h1>
+        <p class="auth-sub">Acesse sua escala, agenda e equipe de louvor.</p>
+        <form id="loginForm" class="login-form">
+          <div class="field"><label>Usuário ou e-mail</label><input class="input" id="loginIdentifier" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>
+          <div class="field"><label>Senha</label><input class="input" id="loginPassword" type="password" autocomplete="current-password" required></div>
+          <button class="white-btn" id="loginSubmit">Entrar</button>
+        </form>
+      </section>
+      <div class="toast-wrap"></div>
+    </div></main>`;
+  }
+
+  async function resolveLoginEmail(identifier){
+    const clean=identifier.trim();
+    if(clean.includes('@')) return clean;
+    const {data,error}=await supabaseClient.rpc('imv_resolve_login',{p_identifier:clean});
+    if(error) throw error;
+    return data || '';
+  }
+
+  async function tryClaimFirstAccess(identifier,password){
+    const clean=identifier.trim().toLowerCase();
+    if(clean.includes('@')) return null;
+    const {data,error}=await supabaseClient.functions.invoke('imv-claim-access',{body:{identifier:clean,password}});
+    if(error || !data?.email) return null;
+    return data.email;
+  }
+
+  function bindLogin(){
+    document.getElementById('loginForm')?.addEventListener('submit',async e=>{
+      e.preventDefault();
+      if(!supabaseClient) return toast('O acesso online ainda não está configurado.','error');
+      const identifier=document.getElementById('loginIdentifier').value.trim();
+      const password=document.getElementById('loginPassword').value;
+      const button=document.getElementById('loginSubmit');
+      button.disabled=true; button.textContent='Entrando…';
+      try{
+        let email=await resolveLoginEmail(identifier);
+        if(!email) return toast('Usuário ou senha inválidos.','error');
+
+        let login=await supabaseClient.auth.signInWithPassword({email,password});
+        if(login.error){
+          const claimedEmail=await tryClaimFirstAccess(identifier,password);
+          if(claimedEmail){
+            email=claimedEmail;
+            login=await supabaseClient.auth.signInWithPassword({email,password});
+          }
+        }
+        if(login.error) return toast('Usuário ou senha inválidos.','error');
+      }catch(err){
+        console.error(err);
+        toast('Não foi possível entrar agora.','error');
+      }finally{
+        button.disabled=false; button.textContent='Entrar';
+      }
+    });
+  }
+
+  function firstAccessTemplate(){
+    const needsPassword=state.mustChangePassword;
+    const draft=loadFirstAccessDraft();
+    const displayUser={...state.user,
+      name:draft.name??state.user.name,
+      phone:draft.phone??state.user.phone,
+      birth_date:draft.birth_date??state.user.birth_date,
+      avatar_url:draft.avatar_url??state.user.avatar_url
+    };
+    return `<main class="auth-screen"><div class="auth-shell">
+      <div class="auth-brand">
+        <img class="auth-logo" src="/imv-logo.svg" alt="Igreja Metodista Valentim">
+        <div class="auth-church">Igreja Metodista Valentim</div>
+      </div>
+      <section class="auth-card">
+        <h1>Complete seu cadastro</h1>
+        <p class="auth-sub">No primeiro acesso, confirme seus dados. A data de nascimento será usada nos avisos de aniversário.</p>
+        <form id="firstAccessForm" class="login-form">
+          <label class="profile-photo-picker" for="firstProfilePhoto">
+            ${avatar(displayUser,'avatar-lg')}
+            <span class="photo-picker-copy"><b>Foto de perfil</b><span>Toque aqui para tirar uma foto ou escolher da galeria.</span></span>
+            <input id="firstProfilePhoto" type="file" accept="image/*">
+          </label>
+          <div class="field"><label>Nome completo</label><input class="input" id="firstFullName" value="${esc(displayUser.name||'')}" autocomplete="name" required></div>
+          <div class="field"><label>Data de nascimento</label><input class="input" id="firstBirthDate" type="date" value="${esc(displayUser.birth_date||'')}" required><div class="onboarding-age" id="firstAgeHint"></div></div>
+          <div class="field"><label>Celular / WhatsApp</label><input class="input" id="firstPhone" value="${esc(displayUser.phone||'')}" inputmode="tel" autocomplete="tel" placeholder="(32) 99999-9999"><div class="tiny muted">Recomendado para os avisos e mensagens da escala.</div></div>
+          ${needsPassword?`
+            <div class="field"><label>Nova senha</label><input class="input" id="firstNewPassword" type="password" autocomplete="new-password" minlength="8" required></div>
+            <div class="field"><label>Confirmar nova senha</label><input class="input" id="firstNewPasswordConfirm" type="password" autocomplete="new-password" minlength="8" required></div>
+            <div class="password-rules">A senha inicial só serve para este primeiro acesso. Crie uma senha pessoal com pelo menos 8 caracteres.</div>
+          `:''}
+          <div class="tiny muted" id="firstDraftStatus">Rascunho salvo automaticamente neste aparelho.</div>
+          <button class="white-btn" id="firstAccessSubmit">Concluir cadastro</button>
+        </form>
+      </section>
+      <div class="toast-wrap"></div>
+    </div></main>`;
+  }
+
+  function bindFirstAccess(){
+    const form=document.getElementById('firstAccessForm');
+    const nameInput=document.getElementById('firstFullName');
+    const birth=document.getElementById('firstBirthDate');
+    const phoneInput=document.getElementById('firstPhone');
+    const photoInput=document.getElementById('firstProfilePhoto');
+    const avatarEl=document.querySelector('.profile-photo-picker .avatar');
+    const status=document.getElementById('firstDraftStatus');
+
+    const updateAge=()=>{const age=ageFromBirth(birth?.value);const el=document.getElementById('firstAgeHint');if(el)el.textContent=age===null?'':`Idade: ${age} anos`;};
+    const saveDraft=()=>{
+      saveFirstAccessDraft({
+        name:nameInput?.value||'',
+        birth_date:birth?.value||'',
+        phone:phoneInput?.value||''
+      });
+      if(status)status.textContent='Rascunho salvo automaticamente neste aparelho.';
+    };
+
+    [nameInput,birth,phoneInput].forEach(el=>el?.addEventListener('input',()=>{saveDraft();updateAge();}));
+    birth?.addEventListener('change',()=>{saveDraft();updateAge();});
+    updateAge();
+
+    photoInput?.addEventListener('change',async()=>{
+      const file=photoInput.files?.[0];
+      if(!file)return;
+      try{
+        if(status)status.textContent='Preparando foto…';
+        const preview=await avatarFileToDataUrl(file);
+        photoInput.dataset.avatarDataUrl=preview;
+        setAvatarPreview(avatarEl,preview,nameInput?.value||state.user.name);
+        saveFirstAccessDraft({avatar_url:preview});
+        if(status)status.textContent='Foto salva no rascunho.';
+      }catch(err){
+        console.error(err);
+        photoInput.value='';
+        toast(err?.message||'Não foi possível carregar a foto.','error');
+      }
+    });
+
+    window.onpagehide=saveDraft;
+    document.onvisibilitychange=()=>{if(document.hidden)saveDraft();};
+
+    form?.addEventListener('submit',async e=>{
+      e.preventDefault();
+      saveDraft();
+      const fullName=nameInput.value.trim().replace(/\s+/g,' ');
+      const birthDate=birth.value;
+      const phone=phoneInput.value.trim();
+      if(fullName.split(' ').filter(Boolean).length<2) return toast('Digite seu nome completo.','error');
+      if(!birthDate) return toast('Informe sua data de nascimento.','error');
+
+      const button=document.getElementById('firstAccessSubmit');
+      button.disabled=true;button.textContent='Salvando…';
+      try{
+        const draft=loadFirstAccessDraft();
+        const avatar_url=photoInput?.dataset.avatarDataUrl||draft.avatar_url||state.user.avatar_url||'';
+
+        if(state.mustChangePassword){
+          const password=document.getElementById('firstNewPassword').value;
+          const confirm=document.getElementById('firstNewPasswordConfirm').value;
+          if(password.length<8) throw new Error('Use pelo menos 8 caracteres.');
+          if(password!==confirm) throw new Error('As senhas não conferem.');
+          const updated=await supabaseClient.auth.updateUser({password});
+          if(updated.error) throw updated.error;
+        }
+
+        const patch={name:fullName,phone,birth_date:birthDate,avatar_url,onboarding_complete:true,must_change_password:false};
+        const saved=await supabaseClient.from('profiles').update(patch).eq('id',state.user.id);
+        if(saved.error) throw saved.error;
+        Object.assign(state.user,patch);
+        const member=findMember(state.user.id);if(member)Object.assign(member,patch);
+        state.mustChangePassword=false;
+        clearFirstAccessDraft();
+        window.onpagehide=null;
+        document.onvisibilitychange=null;
+        await ensureBirthdayAlert();
+        if(state.user.role==='admin') await ensureRollingSchedule({silent:true});
+        render();
+        toast('Cadastro concluído.');
+      }catch(err){
+        console.error(err);
+        button.disabled=false;button.textContent='Concluir cadastro';
+        saveDraft();
+        toast(err?.message||'Não foi possível concluir o cadastro.','error');
+      }
+    });
+  }
+
+  function shellTemplate(){
+    const title={dashboard:'Visão geral',calendar:'Agenda de escalas',team:'Equipe',availability:'Indisponibilidade',songs:'Repertório',notifications:'Notificações',profile:'Meu perfil'}[state.view]||'IMV Louvor';
+    return `<div class="app-shell">
+      <aside class="sidebar"><div class="brand"><img src="/imv-logo.svg"><div class="brand-copy"><b>IMV</b><span>MINISTÉRIO DE LOUVOR</span></div></div>
+      <nav class="nav">${navItems.filter(([id])=>id!=='team'||can('manage_team')).map(([id,ico,label])=>`<button class="nav-btn ${state.view===id?'active':''}" data-nav="${id}"><span class="nav-ico">${ico}</span>${label}</button>`).join('')}</nav>
+      <div class="sidebar-foot"><button class="nav-btn" data-nav="profile">${avatar(state.user)}<span><b>${esc(state.user.name)}</b><br><span class="tiny">${esc(roleLabel[state.user.role]||state.user.role)}</span></span></button></div></aside>
+      <main class="main"><header class="topbar"><div class="topbar-title"><div class="mobile-brand-mark" id="mobileBrandMark"></div><h1>${esc(title)}</h1></div><div class="top-actions">${can('create_event')?`<button class="ghost-btn" id="quickEvent">+ Novo evento</button>`:''}<button class="icon-btn" id="notifBtn" style="position:relative">○${unreadCount()?`<span class="badge-dot">${unreadCount()}</span>`:''}</button>${avatar(state.user)}</div></header>
+      <div class="content">${viewTemplate()}</div></main>
+      <nav class="mobile-nav">${[['dashboard','⌂','Início'],['calendar','□','Agenda'],['availability','−','Indisp.'],['songs','♬','Músicas'],['profile','◎','Perfil']].map(([id,ico,label])=>`<button data-nav="${id}" class="${state.view===id?'active':''}"><span>${ico}</span>${label}</button>`).join('')}</nav>
+      ${state.notificationOpen?notificationsPopover():''}${state.modal?modalTemplate():''}<div class="toast-wrap"></div>
+    </div>`;
+  }
+
+  function viewTemplate(){
+    if(state.view==='team'&&!can('manage_team')){state.view='dashboard';syncViewUrl('dashboard',{replace:true});}
+    return ({dashboard:dashboardView,calendar:calendarView,team:teamView,availability:availabilityView,songs:songsView,notifications:notificationsView,profile:profileView}[state.view]||dashboardView)();
+  }
+
+  function dashboardView(){
+    const upcoming=visibleEvents().filter(e=>e.event_date>=isoDate(new Date())).sort((a,b)=>a.event_date.localeCompare(b.event_date)).slice(0,5);
+    const nextMine=upcoming.find(e=>eventAssignments(e).some(a=>a.user_id===state.user.id))||upcoming[0]||null;
+    const mine=visibleEvents().filter(e=>eventAssignments(e).some(a=>a.user_id===state.user.id)&&e.event_date>=isoDate(new Date())).length;
+    const openAlerts=state.notifications.filter(n=>!n.read&&n.type==='no_available').length;
+    const birthdays=birthdayMembers();
+    return `${birthdays.length?`<div class="card" style="margin-bottom:18px"><div class="small muted">🎂 ANIVERSÁRIO DE HOJE</div><h2 style="margin:7px 0 0">${birthdays.map(m=>esc(m.name)).join(' • ')}</h2></div>`:''}<div class="grid grid-4">
+      ${nextMine?`<button class="card white stat stat-click" data-event="${nextMine.id}" aria-label="Abrir minha próxima escala"><div class="label">Minha próxima escala • toque para abrir</div><div><div class="value" style="font-size:22px">${esc(nextMine.event_type||nextMine.title)}</div><div class="kpi-note">${fmtDate(nextMine.event_date)} • ${esc(nextMine.time_start||'')}</div></div></button>`:`<div class="card white stat"><div class="label">Minha próxima escala</div><div><div class="value" style="font-size:22px">Sem escala</div><div class="kpi-note">Nenhum evento futuro</div></div></div>`}
+      <div class="card stat"><div class="label">Escalas futuras</div><div class="value">${mine}</div></div>
+      <div class="card stat"><div class="label">Equipe ativa</div><div class="value">${state.members.filter(m=>m.active!==false).length}</div></div>
+      <div class="card stat"><div class="label">Alertas de escala</div><div class="value">${openAlerts}</div></div>
+    </div>
+    <div style="height:18px"></div>
+    <div class="grid grid-2"><section class="card"><div class="section-head"><h2>Próximos eventos</h2><button class="ghost-btn" data-nav="calendar">Abrir agenda</button></div><div class="agenda-list">${upcoming.length?upcoming.map(eventCard).join(''):'<div class="empty">Nenhum evento futuro.</div>'}</div></section>
+      <section class="card"><div class="section-head"><h2>Atenção</h2></div>${state.notifications.filter(n=>!n.read).slice(0,5).map(n=>`<div class="notif unread"><div class="notif-title">${esc(n.title)}</div><div class="notif-body">${esc(n.body)}</div></div>`).join('')||'<div class="empty">Tudo em ordem por aqui.</div>'}</section></div>`;
+  }
+  function eventCard(e){const filled=eventAssignments(e).length, req=(e.required_functions||[]).length;return `<button class="agenda-item" data-event="${e.id}" style="text-align:left;color:inherit;width:100%;cursor:pointer"><div class="agenda-date">${fmtFullDate(e.event_date)} • ${esc(e.time_start||'')}</div><div class="agenda-title">${esc(e.title)}</div><div class="agenda-meta">${filled}/${req} funções preenchidas • Ministro: ${esc(memberName(e.minister_id))}</div></button>`;}
+
+  function calendarView(){
+    const d=state.calendarCursor, y=d.getFullYear(),m=d.getMonth();
+    const first=new Date(y,m,1), start=new Date(y,m,1-first.getDay()), cells=[];
+    for(let i=0;i<42;i++){const day=new Date(start);day.setDate(start.getDate()+i);cells.push(day);}
+    const upcoming=visibleEvents().filter(e=>e.event_date>=isoDate(new Date())).sort((a,b)=>a.event_date.localeCompare(b.event_date)).slice(0,8);
+    const monthKey=`${y}-${String(m+1).padStart(2,'0')}`;
+    const monthEvents=visibleEvents().filter(e=>e.event_date.startsWith(monthKey)).sort((a,b)=>a.event_date.localeCompare(b.event_date)||(a.time_start||'').localeCompare(b.time_start||''));
+    const monthLabel=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(d);
+    return `<div class="calendar-shell"><section class="calendar"><div class="calendar-head"><div><div class="small muted">AGENDA</div><div class="calendar-title">${monthLabel}</div></div><div class="cal-controls"><button class="icon-btn" id="prevMonth">‹</button><button class="ghost-btn" id="todayBtn">Hoje</button><button class="icon-btn" id="nextMonth">›</button>${can('create_event')?'<button class="white-btn calendar-create-top" id="newEventTop">+ Criar evento</button>':''}${state.user.role==='admin'?'<button class="ghost-btn calendar-create-top" id="generateSchedule">Gerar / atualizar 2 meses</button>':''}</div></div>
+      <div class="mobile-calendar-list"><div class="mobile-calendar-month">Eventos de ${monthLabel}</div>${monthEvents.length?monthEvents.map(eventCard).join(''):'<div class="empty">Nenhum evento neste mês.</div>'}</div>
+      <div class="cal-week">${['DOM','SEG','TER','QUA','QUI','SEX','SÁB'].map(x=>`<div>${x}</div>`).join('')}</div><div class="cal-grid">${cells.map(day=>{const key=isoDate(day), events=visibleEvents().filter(e=>e.event_date===key);return `<div class="day ${day.getMonth()!==m?'outside':''} ${key===isoDate(new Date())?'today':''}" data-day="${key}"><div class="day-num">${day.getDate()}</div>${events.slice(0,3).map(e=>`<div class="event-pill ${eventAssignments(e).length<(e.required_functions||[]).length?'alert':''}" data-event="${e.id}"><b>${esc(e.event_type)}</b><span class="time">${esc(e.time_start||'')}</span></div>`).join('')}${events.length>3?`<div class="tiny muted">+${events.length-3}</div>`:''}</div>`}).join('')}</div></section>
+      <aside class="side-panel"><div class="card"><div class="section-head"><h2>Próximos</h2>${can('create_event')?`<button class="white-btn" id="newEventSide">+ Criar</button>`:''}</div><div class="agenda-list">${upcoming.map(eventCard).join('')||'<div class="empty">Sem eventos.</div>'}</div></div><div class="card"><div class="small muted">AUTOESCALA</div><h3 style="margin:7px 0 8px">Sem meta de escala.</h3><p class="small muted" style="line-height:1.6;margin:0">O sistema respeita indisponibilidade, função e conflito no dia. Entre os disponíveis, prioriza quem tem menos escalas no mês. Se ninguém puder servir, o ministro do evento recebe um alerta.</p></div></aside></div>`;
+  }
+
+  function teamView(){
+    if(!can('manage_team')) return '<div class="empty">Somente administradores podem acessar a equipe.</div>';
+    return `<section class="card"><div class="section-head"><div><h2>Equipe</h2><div class="small muted">Funções, acessos e status do primeiro cadastro.</div></div></div><div class="table-wrap"><table class="table"><thead><tr><th>Pessoa</th><th>Usuário</th><th>Acesso</th><th>Funções</th><th>Nascimento</th><th>Status</th><th></th></tr></thead><tbody>${state.members.map(m=>`<tr><td><div class="member-cell">${avatar(m)}<div><b>${esc(m.name)}</b>${m.is_ministry_leader?'<div class="leader-badge">LÍDER DO MINISTÉRIO</div>':''}</div></div></td><td><span class="mono">${esc(m.username||'—')}</span></td><td><span class="role-badge">${esc(roleLabel[m.role]||m.role)}</span></td><td>${(m.functions||[]).map(f=>`<span class="chip">${esc(f)}</span>`).join(' ')||'<span class="muted small">A definir</span>'}</td><td>${m.birth_date?`${fmtDate(m.birth_date)} • ${ageFromBirth(m.birth_date)} anos`:'<span class="muted small">Pendente</span>'}</td><td>${m.onboarding_complete?'<span class="chip success">Cadastro concluído</span>':'<span class="chip warn">Primeiro acesso pendente</span>'}</td><td><button class="ghost-btn small" data-edit-member="${m.id}">Editar</button></td></tr>`).join('')}</tbody></table></div></section>`;
+  }
+
+  function availabilityView(){
+    const mine=state.unavailability.filter(u=>u.user_id===state.user.id).sort((a,b)=>a.start_date.localeCompare(b.start_date));
+    return `<div class="grid grid-2"><section class="card"><div class="section-head"><div><h2>Minha indisponibilidade</h2><div class="small muted">O sistema nunca te escala dentro dessas datas.</div></div><button class="white-btn" id="newUnav">+ Marcar</button></div><div class="agenda-list">${mine.length?mine.map(u=>`<div class="agenda-item"><div class="agenda-title">${fmtDate(u.start_date)}${u.end_date!==u.start_date?` → ${fmtDate(u.end_date)}`:''}</div><div class="agenda-meta">${esc(u.reason||'Sem motivo informado')}</div><button class="link-btn" data-del-unav="${u.id}" style="margin-top:8px">Remover</button></div>`).join(''):'<div class="empty">Você não marcou nenhuma indisponibilidade.</div>'}</div></section><section class="card"><div class="small muted">COMO FUNCIONA</div><h2 style="margin:8px 0">Sua indisponibilidade tem prioridade.</h2><p class="muted small" style="line-height:1.7">Ao montar uma escala automática, o sistema elimina primeiro quem marcou indisponibilidade, quem já está em outra função no mesmo evento e quem não possui a função necessária. Depois equilibra a escolha pela quantidade de escalas no mês.</p></section></div>`;
+  }
+
+  function songsView(){
+    if(!state.selectedSong&&state.songs.length){state.selectedSong=state.songs[0].id;state.songKey=state.songs[0].default_key;}
+    const song=state.songs.find(s=>s.id===state.selectedSong);
+    return `<div class="song-layout"><section class="card"><div class="section-head"><div><h2>Músicas</h2><div class="small muted">Clique para abrir a cifra.</div></div>${can('manage_songs')?'<button class="white-btn" id="addSong">+</button>':''}</div><div class="song-list">${state.songs.map(s=>`<button class="song-item ${s.id===state.selectedSong?'active':''}" data-song="${s.id}" style="text-align:left;color:inherit;width:100%"><div class="song-title">${esc(s.title)}</div><div class="song-meta">Tom original: ${esc(s.default_key)}</div></button>`).join('')||'<div class="empty">Nenhuma música cadastrada.</div>'}</div></section><section class="card">${song?`<div class="section-head"><div><div class="small muted">CIFRA INTERATIVA</div><h2>${esc(song.title)}</h2></div><div class="chord-toolbar"><button class="icon-btn" id="keyDown">−</button><div class="key-badge">${esc(state.songKey||song.default_key)}</div><button class="icon-btn" id="keyUp">+</button><button class="ghost-btn" id="resetKey">Original</button></div></div><div class="chord-sheet">${renderChordSheet(song.lyrics,song.default_key,state.songKey||song.default_key)}</div>`:'<div class="empty">Escolha uma música.</div>'}</section></div>`;
+  }
+
+  function notificationsView(){
+    return `<section class="card"><div class="section-head"><div><h2>Notificações</h2><div class="small muted">Escalas, conflitos e avisos.</div></div><button class="ghost-btn" id="markAllRead">Marcar como lidas</button></div>${state.notifications.length?state.notifications.map(n=>`<div class="notif ${!n.read?'unread':''}"><div class="notif-title">${esc(n.title)}</div><div class="notif-body">${esc(n.body)}</div></div>`).join(''):'<div class="empty">Nenhuma notificação.</div>'}</section>`;
+  }
+
+  function profileView(){
+    const age=ageFromBirth(state.user.birth_date);
+    return `<div class="grid grid-2"><section class="card"><div class="section-head"><h2>Meu perfil</h2></div><form id="profileForm" class="form-grid">
+      <div class="field full"><label>Foto de perfil</label><label class="profile-photo-picker" for="profilePhoto">${avatar(state.user,'avatar-lg')}<span class="photo-picker-copy"><b>Trocar foto</b><span>Toque na foto para tirar uma nova ou escolher da galeria.</span></span><input id="profilePhoto" type="file" accept="image/*"></label></div>
+      <div class="field full"><label>Nome completo</label><input class="input" id="profileName" value="${esc(state.user.name)}" required></div>
+      <div class="field"><label>Data de nascimento</label><input class="input" id="profileBirthDate" type="date" value="${esc(state.user.birth_date||'')}" required><div class="onboarding-age">${age===null?'':`Idade: ${age} anos`}</div></div>
+      <div class="field"><label>Telefone / WhatsApp</label><input class="input" id="profilePhone" value="${esc(state.user.phone||'')}" placeholder="(32) 99999-9999"></div>
+      <div class="field"><label>Usuário</label><input class="input" value="${esc(state.user.username||'')}" disabled></div>
+      <div class="field full"><label>Minhas funções</label><div class="chips">${(state.user.functions||[]).map(f=>`<span class="chip">${esc(f)}</span>`).join('')||'<span class="muted small">A definir pelo administrador</span>'}</div></div>
+      <div class="field full"><button class="white-btn">Salvar perfil</button></div>
+    </form></section><section class="card"><div class="section-head"><h2>Segurança</h2></div><p class="small muted">Sua sessão permanece salva neste aparelho. Você pode redefinir sua senha sem sair do sistema.</p>${supabaseClient?`<button class="ghost-btn" id="changePassword">Redefinir senha</button>`:''}<div class="divider"></div><button class="danger-btn" id="logoutBtn">Sair deste aparelho</button></section></div>`;
+  }
+
+  function notificationsPopover(){return `<div class="notification-pop"><div class="section-head" style="margin:4px 4px 6px"><h2 style="font-size:14px">Avisos</h2><button class="link-btn" id="closeNotif">Fechar</button></div>${state.notifications.filter(n=>n.recipient_id===state.user.id||state.demo).slice(0,8).map(n=>`<div class="notif ${!n.read?'unread':''}"><div class="notif-title">${esc(n.title)}</div><div class="notif-body">${esc(n.body)}</div></div>`).join('')||'<div class="empty">Sem avisos.</div>'}</div>`;}
+
+  function modalTemplate(){
+    const m=state.modal;
+    if(m.type==='event') return eventModal(m);
+    if(m.type==='eventDetail') return eventDetailModal(m.event);
+    if(m.type==='unavailability') return unavailabilityModal();
+    if(m.type==='member') return memberModal(m.member);
+    if(m.type==='song') return songModal();
+    if(m.type==='password') return passwordModal();
+    return '';
+  }
+
+  function modalWrap(title,body,actions=''){return `<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="modal-head"><b>${esc(title)}</b><button class="icon-btn" id="closeModal">×</button></div><div class="modal-body">${body}</div>${actions?`<div class="modal-actions">${actions}</div>`:''}</div></div>`;}
+
+  function eventModal(m){
+    const date=m.date||isoDate(new Date());
+    const slotOptions=scheduleGroups.map(g=>`<div class="schedule-group"><div class="schedule-group-head">${esc(g.label)}</div><div style="padding:12px 14px"><div class="checkbox-row">${g.slots.map(f=>`<label class="check"><input type="checkbox" name="requiredFn" value="${f}" ${coreEventSlots.includes(f)?'checked':''}>${esc(f)}</label>`).join('')}</div></div></div>`).join('');
+    return modalWrap('Criar evento',`<form id="eventForm" class="form-grid"><div class="field"><label>Tipo</label><select class="select" id="eventType">${eventTypes.map(t=>`<option>${esc(t)}</option>`).join('')}</select></div><div class="field"><label>Nome do evento</label><input class="input" id="eventTitle" placeholder="Ex.: Culto de terça"></div><div class="field"><label>Data</label><input class="input" id="eventDate" type="date" value="${date}" required></div><div class="field"><label>Horário</label><input class="input" id="eventTime" type="time" value="19:30" required></div><div class="field"><label>Ministro / responsável</label><select class="select" id="eventMinister"><option value="">A definir</option>${state.members.filter(x=>x.active!==false&&(x.functions||[]).includes('Ministro')).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>Local</label><input class="input" id="eventLocation" value="IMV"></div><div class="field full"><label>Equipe necessária</label><div class="schedule-groups">${slotOptions}</div></div><div class="field full"><label>Observações</label><textarea class="textarea" id="eventNotes"></textarea></div></form>`,`<button class="ghost-btn" id="cancelModal">Cancelar</button><button class="white-btn" id="saveEvent">Criar e abrir escala</button>`);
+  }
+
+  function slotCandidates(slot){
+    const needed=slotFunction(slot);
+    return state.members.filter(m=>m.active!==false&&(m.functions||[]).includes(needed)).sort((a,b)=>a.name.localeCompare(b.name));
+  }
+
+  function eventDetailModal(e){
+    const assigns=eventAssignments(e);
+    const slots=[...new Set((e.required_functions?.length?e.required_functions:coreEventSlots))];
+    const missing=slots.filter(f=>!assigns.some(a=>(a.function_name||a.function)===f));
+    const groups=scheduleGroups.map(group=>{
+      const groupSlots=group.slots.filter(slot=>slots.includes(slot));
+      if(!groupSlots.length)return '';
+      const rows=groupSlots.map(fn=>{
+        const a=assigns.find(x=>(x.function_name||x.function)===fn);
+        const person=a?findMember(a.user_id):null;
+        if(can('edit_event')){
+          const options=slotCandidates(fn).map(m=>`<option value="${m.id}" ${a?.user_id===m.id?'selected':''}>${esc(m.name)}</option>`).join('');
+          return `<div class="schedule-slot"><div class="schedule-slot-name">${esc(fn)}</div><select class="select" data-manual-slot="${esc(fn)}" data-event-id="${e.id}"><option value="">A definir</option>${options}</select></div>`;
+        }
+        return `<div class="schedule-slot"><div class="schedule-slot-name">${esc(fn)}</div><div class="member-cell">${person?avatar(person):'<div class="avatar">—</div>'}<div><b>${person?esc(person.name):'A definir'}</b></div></div></div>`;
+      }).join('');
+      return `<section class="schedule-group"><div class="schedule-group-head">${esc(group.label)}</div>${rows}</section>`;
+    }).join('');
+
+    return modalWrap(e.title,`<div class="chips"><span class="chip white">${esc(e.event_type)}</span><span class="chip">${fmtFullDate(e.event_date)} • ${esc(e.time_start||'')}</span><span class="chip">Ministro responsável: ${esc(memberName(e.minister_id))}</span></div><div class="divider"></div><div class="section-head"><div><h2 style="font-size:15px">Escala</h2><div class="tiny muted">${can('edit_event')?'Toque em cada posição para escolher a pessoa.':'Equipe definida para este evento.'}</div></div>${can('auto_schedule')?`<button class="white-btn" data-auto="${e.id}">Autoescalar</button>`:''}</div><div class="schedule-groups">${groups}</div>${missing.length?`<div style="margin-top:14px" class="chip danger">Ainda sem pessoa: ${missing.map(esc).join(', ')}</div>`:''}<div class="divider"></div><div class="toolbar"><button class="ghost-btn" data-whatsapp="${e.id}">Enviar escala no WhatsApp</button>${can('edit_event')?`<button class="ghost-btn" data-auto="${e.id}">Refazer autoescala</button><button class="danger-btn" data-delete-event="${e.id}">Excluir escala/evento</button>`:''}</div>`,`<button class="ghost-btn" id="cancelModal">Fechar</button>`);
+  }
+
+  function unavailabilityModal(){return modalWrap('Marcar indisponibilidade',`<form id="unavForm" class="form-grid"><div class="field"><label>De</label><input class="input" type="date" id="unavStart" value="${isoDate(new Date())}"></div><div class="field"><label>Até</label><input class="input" type="date" id="unavEnd" value="${isoDate(new Date())}"></div><div class="field full"><label>Motivo (opcional)</label><input class="input" id="unavReason" placeholder="Ex.: viagem"></div></form>`,`<button class="ghost-btn" id="cancelModal">Cancelar</button><button class="white-btn" id="saveUnav">Salvar</button>`);}
+
+  function memberModal(member){
+    const m=member||{name:'',username:'',phone:'',role:'member',functions:[],active:true,avatar_url:'',birth_date:null,is_ministry_leader:false};
+    return modalWrap(member?'Editar integrante':'Adicionar integrante',`<form id="memberForm" class="form-grid">
+      <div class="field full"><label>Foto de perfil</label><label class="profile-photo-picker" for="memberPhoto">${avatar(m,'avatar-lg')}<span class="photo-picker-copy"><b>Foto</b><span>Toque para escolher ou tirar uma foto.</span></span><input id="memberPhoto" type="file" accept="image/*"></label></div>
+      <div class="field"><label>Nome</label><input class="input" id="memberName" value="${esc(m.name)}"></div>
+      <div class="field"><label>Usuário</label><input class="input" value="${esc(m.username||'')}" disabled></div>
+      <div class="field"><label>WhatsApp</label><input class="input" id="memberPhone" value="${esc(m.phone||'')}"></div>
+      <div class="field"><label>Data de nascimento</label><input class="input" id="memberBirthDate" type="date" value="${esc(m.birth_date||'')}"></div>
+      <div class="field"><label>Permissão</label><select class="select" id="memberRole">${Object.entries(roleLabel).map(([v,l])=>`<option value="${v}" ${m.role===v?'selected':''}>${l}</option>`).join('')}</select></div>
+      <div class="field"><label>Destaque</label><label class="check"><input type="checkbox" id="memberLeader" ${m.is_ministry_leader?'checked':''}> Líder do Ministério de Louvor</label></div>
+      <div class="field full"><label>Funções — pode marcar mais de uma</label><div class="checkbox-row">${functionsCatalog.map(f=>`<label class="check"><input type="checkbox" name="memberFn" value="${f}" ${(m.functions||[]).includes(f)?'checked':''}>${f}</label>`).join('')}</div></div>
+    </form>`,`<button class="ghost-btn" id="cancelModal">Cancelar</button><button class="white-btn" id="saveMember" data-member-id="${member?.id||''}">Salvar</button>`);
+  }
+
+  function songModal(){return modalWrap('Nova música',`<form id="songForm" class="form-grid"><div class="field"><label>Título</label><input class="input" id="songTitle"></div><div class="field"><label>Tom original</label><select class="select" id="songDefaultKey">${KEYS.map(k=>`<option>${k}</option>`).join('')}</select></div><div class="field full"><label>Cifra</label><textarea class="textarea" style="min-height:320px;font-family:monospace" id="songLyrics" placeholder="Cole a cifra aqui..."></textarea></div></form>`,`<button class="ghost-btn" id="cancelModal">Cancelar</button><button class="white-btn" id="saveSong">Salvar música</button>`);}
+  function passwordModal(){return modalWrap('Redefinir senha',`<div class="field"><label>Nova senha</label><input class="input" id="newPassword" type="password" minlength="8"></div>`,`<button class="ghost-btn" id="cancelModal">Cancelar</button><button class="white-btn" id="savePassword">Atualizar senha</button>`);}
+
+  function bindShell(){
+    const sideLogo=document.querySelector('.brand img');const mobileMark=document.getElementById('mobileBrandMark');if(sideLogo&&mobileMark)mobileMark.innerHTML=sideLogo.outerHTML;
+    document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>navigateView(b.dataset.nav));
+    document.getElementById('notifBtn')?.addEventListener('click',()=>{state.notificationOpen=!state.notificationOpen;render();});
+    document.getElementById('closeNotif')?.addEventListener('click',()=>{state.notificationOpen=false;render();});
+    document.getElementById('quickEvent')?.addEventListener('click',()=>openEventModal());
+    document.getElementById('newEventSide')?.addEventListener('click',()=>openEventModal());
+    document.getElementById('newEventTop')?.addEventListener('click',()=>openEventModal());
+    document.getElementById('generateSchedule')?.addEventListener('click',()=>ensureRollingSchedule({silent:false}));
+    document.getElementById('prevMonth')?.addEventListener('click',()=>{state.calendarCursor=new Date(state.calendarCursor.getFullYear(),state.calendarCursor.getMonth()-1,1);render();});
+    document.getElementById('nextMonth')?.addEventListener('click',()=>{state.calendarCursor=new Date(state.calendarCursor.getFullYear(),state.calendarCursor.getMonth()+1,1);render();});
+    document.getElementById('todayBtn')?.addEventListener('click',()=>{state.calendarCursor=new Date();render();});
+    document.querySelectorAll('.day[data-day]').forEach(el=>el.onclick=(ev)=>{if(ev.target.closest('[data-event]'))return;if(can('create_event'))openEventModal(el.dataset.day);});
+    document.querySelectorAll('[data-event]').forEach(el=>el.onclick=(ev)=>{ev.stopPropagation();const e=state.events.find(x=>x.id===el.dataset.event);if(e){state.modal={type:'eventDetail',event:e};render();}});
+    document.getElementById('newUnav')?.addEventListener('click',()=>{state.modal={type:'unavailability'};render();});
+    document.querySelectorAll('[data-del-unav]').forEach(b=>b.onclick=()=>deleteUnavailability(b.dataset.delUnav));
+    document.getElementById('addMember')?.addEventListener('click',()=>{state.modal={type:'member',member:null};render();});
+    document.querySelectorAll('[data-edit-member]').forEach(b=>b.onclick=()=>{state.modal={type:'member',member:findMember(b.dataset.editMember)};render();});
+    document.querySelectorAll('[data-song]').forEach(b=>b.onclick=()=>{state.selectedSong=b.dataset.song;const s=state.songs.find(x=>x.id===state.selectedSong);state.songKey=s?.default_key;render();});
+    document.getElementById('addSong')?.addEventListener('click',()=>{state.modal={type:'song'};render();});
+    document.getElementById('keyDown')?.addEventListener('click',()=>transposeSelected(-1));document.getElementById('keyUp')?.addEventListener('click',()=>transposeSelected(1));document.getElementById('resetKey')?.addEventListener('click',()=>{const s=state.songs.find(x=>x.id===state.selectedSong);state.songKey=s.default_key;render();});
+    document.getElementById('markAllRead')?.addEventListener('click',markAllRead);
+    document.getElementById('profileForm')?.addEventListener('submit',saveProfile);
+    const profilePhoto=document.getElementById('profilePhoto');
+    profilePhoto?.addEventListener('change',async()=>{
+      const file=profilePhoto.files?.[0];if(!file)return;
+      try{
+        const preview=await avatarFileToDataUrl(file);
+        profilePhoto.dataset.avatarDataUrl=preview;
+        setAvatarPreview(document.querySelector('#profileForm .profile-photo-picker .avatar'),preview,state.user.name);
+      }catch(err){
+        console.error(err);profilePhoto.value='';toast(err?.message||'Não foi possível carregar a foto.','error');
+      }
+    });
+    document.getElementById('changePassword')?.addEventListener('click',()=>{state.modal={type:'password'};render();});
+    document.getElementById('logoutBtn')?.addEventListener('click',logout);
+    bindModal();
+  }
+
+  function bindModal(){
+    document.getElementById('closeModal')?.addEventListener('click',closeModal);document.getElementById('cancelModal')?.addEventListener('click',closeModal);
+    document.getElementById('modalBackdrop')?.addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal();});
+    document.getElementById('eventType')?.addEventListener('change',syncEventDefaults);syncEventDefaults();
+    document.getElementById('saveEvent')?.addEventListener('click',saveEvent);
+    document.querySelectorAll('[data-auto]').forEach(b=>b.onclick=()=>autoSchedule(b.dataset.auto));
+    document.querySelectorAll('[data-whatsapp]').forEach(b=>b.onclick=()=>shareWhatsApp(b.dataset.whatsapp));
+    document.querySelectorAll('[data-manual-slot]').forEach(el=>el.onchange=()=>setManualAssignment(el.dataset.eventId,el.dataset.manualSlot,el.value));
+    document.querySelectorAll('[data-delete-event]').forEach(b=>b.onclick=()=>deleteEvent(b.dataset.deleteEvent));
+    document.getElementById('saveUnav')?.addEventListener('click',saveUnavailability);
+    document.getElementById('saveMember')?.addEventListener('click',()=>saveMember(document.getElementById('saveMember').dataset.memberId));
+    const memberPhoto=document.getElementById('memberPhoto');
+    memberPhoto?.addEventListener('change',async()=>{
+      const file=memberPhoto.files?.[0];if(!file)return;
+      try{
+        const preview=await avatarFileToDataUrl(file);
+        memberPhoto.dataset.avatarDataUrl=preview;
+        setAvatarPreview(document.querySelector('#memberForm .profile-photo-picker .avatar'),preview,document.getElementById('memberName')?.value||'');
+      }catch(err){
+        console.error(err);memberPhoto.value='';toast(err?.message||'Não foi possível carregar a foto.','error');
+      }
+    });
+    document.getElementById('saveSong')?.addEventListener('click',saveSong);
+    document.getElementById('savePassword')?.addEventListener('click',savePassword);
+  }
+  function closeModal(){state.modal=null;render();}
+  function openEventModal(date){state.modal={type:'event',date:date||isoDate(new Date())};render();}
+  function syncEventDefaults(){const t=document.getElementById('eventType');if(!t)return;const title=document.getElementById('eventTitle'),time=document.getElementById('eventTime');if(!title||title.dataset.touched)return;const map={'Terça-feira':['Culto de Terça','19:30'],'Domingo • Manhã':['Culto de Domingo • Manhã','09:00'],'Domingo • Noite':['Culto de Domingo • Noite','19:00'],'BRAVE':['BRAVE','19:00'],'Culto de Mulheres':['Culto de Mulheres','19:30'],'Outro':['','19:00']};title.value=map[t.value][0];time.value=map[t.value][1];}
+
+  async function saveEvent(){
+    const title=eventTitle.value.trim()||eventType.value, required=[...document.querySelectorAll('input[name=requiredFn]:checked')].map(x=>x.value);
+    const base={title,event_type:eventType.value,event_date:eventDate.value,time_start:eventTime.value,time_end:null,location:eventLocation.value.trim(),minister_id:eventMinister.value||null,created_by:state.user.id,status:'draft',required_functions:required,notes:eventNotes.value.trim()};
+    let e={...base,id:uid(),assignments:[]};
+    if(supabaseClient){const {data,error}=await supabaseClient.from('events').insert(base).select().single();if(error)return toast(error.message,'error');e={...data,assignments:[]};}
+    state.events.push(e); store.saveDemo(); state.modal={type:'eventDetail',event:e};render(); toast('Evento criado.');
+  }
+
+  function isUnavailable(userId,date){return state.unavailability.some(u=>u.user_id===userId && date>=u.start_date && date<=u.end_date);}
+  function monthlyCount(userId,date){const ym=date.slice(0,7);return visibleEvents().filter(e=>e.event_date.startsWith(ym)).flatMap(eventAssignments).filter(a=>a.user_id===userId).length;}
+  function candidateFor(fn,e,used){const needed=slotFunction(fn);return state.members.filter(m=>m.active!==false && (m.functions||[]).includes(needed) && !used.has(m.id) && !isUnavailable(m.id,e.event_date)).filter(m=>!visibleEvents().some(other=>other.id!==e.id&&other.event_date===e.event_date&&eventAssignments(other).some(a=>a.user_id===m.id))).sort((a,b)=>monthlyCount(a.id,e.event_date)-monthlyCount(b.id,e.event_date)||a.name.localeCompare(b.name))[0];}
+
+  function computeAutoSchedule(e){
+    const used=new Set(),result=[],missing=[];
+    for(const fn of (e.required_functions||coreEventSlots)){
+      let c=null;
+      if(fn==='Ministro'&&e.minister_id){const m=findMember(e.minister_id);if(m&&!isUnavailable(m.id,e.event_date))c=m;}
+      if(!c)c=candidateFor(fn,e,used);
+      if(c){used.add(c.id);result.push({id:uid(),event_id:e.id,user_id:c.id,function_name:fn,confirmation_status:'pending'});} else missing.push(fn);
+    }
+    return {result,missing};
+  }
+
+  async function autoSchedule(eventId,options={}){
+    const e=state.events.find(x=>x.id===eventId);if(!e)return;
+    const {result,missing}=computeAutoSchedule(e);
+    if(supabaseClient){
+      const del=await supabaseClient.from('event_assignments').delete().eq('event_id',e.id);if(del.error)return toast(del.error.message,'error');
+      if(result.length){const payload=result.map(({id,...r})=>r);const ins=await supabaseClient.from('event_assignments').insert(payload).select();if(ins.error)return toast(ins.error.message,'error');result.splice(0,result.length,...ins.data);}
+    }
+    e.assignments=result;
+    if(missing.length){await addNotification(e.minister_id||e.created_by,'Não foi possível fechar a escala',`No evento ${e.title}, não há ninguém disponível para: ${missing.join(', ')}.`,'no_available');}
+    for(const a of result){await addNotification(a.user_id,'Você foi escalado',`${e.title} • ${fmtDate(e.event_date)} • ${a.function_name}.`,'assignment');}
+    store.saveDemo();
+    if(!options.silent){state.modal={type:'eventDetail',event:e};render();toast(missing.length?'Escala montada com pendências.':'Escala montada automaticamente.',missing.length?'error':'');}
+    return {result,missing};
+  }
+
+  async function setManualAssignment(eventId,slot,userId){
+    const e=state.events.find(x=>x.id===eventId);if(!e||!can('edit_event'))return;
+    const previous=eventAssignments(e).find(a=>(a.function_name||a.function)===slot);
+    let inserted=null;
+    if(supabaseClient){
+      const del=await supabaseClient.from('event_assignments').delete().eq('event_id',eventId).eq('function_name',slot);
+      if(del.error)return toast(del.error.message,'error');
+      if(userId){
+        const res=await supabaseClient.from('event_assignments').insert({event_id:eventId,user_id:userId,function_name:slot,confirmation_status:'pending'}).select().single();
+        if(res.error)return toast(res.error.message,'error');
+        inserted=res.data;
+      }
+    }else if(userId){inserted={id:uid(),event_id:eventId,user_id:userId,function_name:slot,confirmation_status:'pending'};}
+    e.assignments=eventAssignments(e).filter(a=>(a.function_name||a.function)!==slot);
+    if(inserted)e.assignments.push(inserted);
+    if(userId && previous?.user_id!==userId) await addNotification(userId,'Você foi escalado',`${e.title} • ${fmtDate(e.event_date)} • ${slot}.`,'assignment');
+    state.modal={type:'eventDetail',event:e};render();toast(userId?'Escala atualizada.':'Posição deixada como “A definir”.');
+  }
+
+  async function deleteEvent(eventId){
+    const e=state.events.find(x=>x.id===eventId);if(!e||!can('edit_event'))return;
+    if(!window.confirm('Excluir esta escala/evento da agenda?'))return;
+    if(supabaseClient){
+      const delAssign=await supabaseClient.from('event_assignments').delete().eq('event_id',eventId);if(delAssign.error)return toast(delAssign.error.message,'error');
+      const upd=await supabaseClient.from('events').update({status:'cancelled'}).eq('id',eventId);if(upd.error)return toast(upd.error.message,'error');
+    }
+    e.status='cancelled';e.assignments=[];state.modal=null;render();toast('Evento removido da agenda.');
+  }
+
+  async function ensureRecurringEvents(){
+    if(!supabaseClient||state.user?.role!=='admin')return 0;
+    const start=new Date();start.setHours(12,0,0,0);
+    const end=new Date(start);end.setMonth(end.getMonth()+2);
+    const templates=[
+      {dow:2,key:'weekly-tuesday',title:'Culto de Terça',event_type:'Terça-feira',time_start:'19:30'},
+      {dow:0,key:'weekly-sunday-am',title:'Culto de Domingo • Manhã',event_type:'Domingo • Manhã',time_start:'09:00'},
+      {dow:0,key:'weekly-sunday-pm',title:'Culto de Domingo • Noite',event_type:'Domingo • Noite',time_start:'19:00'}
+    ];
+    const existing=new Set(state.events.filter(e=>e.recurrence_key).map(e=>`${e.recurrence_key}:${e.event_date}`));
+    const rows=[];
+    for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
+      for(const t of templates){
+        if(d.getDay()!==t.dow)continue;
+        const date=isoDate(d),key=`${t.key}:${date}`;
+        if(existing.has(key))continue;
+        rows.push({title:t.title,event_type:t.event_type,event_date:date,time_start:t.time_start,time_end:null,location:'IMV',minister_id:null,created_by:state.user.id,status:'published',required_functions:coreEventSlots,notes:'Gerado automaticamente pelo ciclo de 2 meses.',recurrence_key:t.key});
+        existing.add(key);
+      }
+    }
+    if(!rows.length)return 0;
+    const ins=await supabaseClient.from('events').insert(rows).select();
+    if(ins.error){console.error(ins.error);toast('Não foi possível atualizar os cultos recorrentes.','error');return 0;}
+    state.events.push(...ins.data.map(e=>({...e,assignments:[]})));
+    return ins.data.length;
+  }
+
+  async function ensureRollingSchedule({silent=false}={}){
+    if(!supabaseClient||state.user?.role!=='admin'||!state.user?.onboarding_complete)return;
+    const created=await ensureRecurringEvents();
+    const today=isoDate(new Date());
+    const horizonDate=new Date();horizonDate.setMonth(horizonDate.getMonth()+2);
+    const horizon=isoDate(horizonDate);
+    const targets=visibleEvents().filter(e=>e.event_date>=today&&e.event_date<=horizon&&!eventAssignments(e).length).sort((a,b)=>a.event_date.localeCompare(b.event_date)||(a.time_start||'').localeCompare(b.time_start||''));
+    const allAssignments=[],allNotifications=[];
+    let pendingCount=0;
+    for(const e of targets){
+      const {result,missing}=computeAutoSchedule(e);
+      e.assignments=result;
+      for(const a of result)allAssignments.push({event_id:e.id,user_id:a.user_id,function_name:a.function_name,confirmation_status:'pending'});
+      for(const a of result)allNotifications.push({recipient_id:a.user_id,title:'Você foi escalado',body:`${e.title} • ${fmtDate(e.event_date)} • ${a.function_name}.`,type:'assignment'});
+      if(missing.length){pendingCount+=missing.length;const recipient=e.minister_id||e.created_by;if(recipient)allNotifications.push({recipient_id:recipient,title:'Não foi possível fechar a escala',body:`No evento ${e.title}, não há ninguém disponível para: ${missing.join(', ')}.`,type:'no_available'});}
+    }
+    if(allAssignments.length){
+      const ins=await supabaseClient.from('event_assignments').insert(allAssignments).select();
+      if(ins.error){console.error(ins.error);return toast('Os cultos foram criados, mas houve erro ao montar as escalas.','error');}
+      const byEvent=new Map();
+      for(const a of ins.data){if(!byEvent.has(a.event_id))byEvent.set(a.event_id,[]);byEvent.get(a.event_id).push(a);}
+      for(const e of targets)e.assignments=byEvent.get(e.id)||[];
+    }
+    if(allNotifications.length){
+      const n=await supabaseClient.from('notifications').insert(allNotifications).select();
+      if(!n.error)state.notifications.unshift(...n.data.filter(x=>x.recipient_id===state.user.id));
+    }
+    if(!silent){render();toast(`Agenda atualizada: ${created} culto(s) criado(s), ${targets.length} escala(s) gerada(s)${pendingCount?` e ${pendingCount} posição(ões) pendente(s)`:''}.`,pendingCount?'error':'');}
+  }
+
+  async function ensureBirthdayAlert(){
+    if(!supabaseClient||!state.user?.id)return;
+    const birthdays=birthdayMembers();if(!birthdays.length)return;
+    const today=isoDate(new Date());
+    if(state.notifications.some(n=>n.type==='birthday'&&String(n.created_at||'').slice(0,10)===today))return;
+    await addNotification(state.user.id,'🎂 Aniversário na equipe',`Hoje é aniversário de ${birthdays.map(m=>m.name).join(', ')}.`,'birthday');
+  }
+
+  async function addNotification(recipient,title,body,type='info'){
+    if(!recipient)return; const n={id:uid(),recipient_id:recipient,title,body,type,read:false,created_at:new Date().toISOString()};
+    if(supabaseClient){const {data}=await supabaseClient.from('notifications').insert({recipient_id:recipient,title,body,type}).select().single();if(data)state.notifications.unshift(data);} else state.notifications.unshift(n);
+  }
+
+  function shareWhatsApp(eventId){const e=state.events.find(x=>x.id===eventId);if(!e)return;const lines=[`*${e.title}*`,`📅 ${fmtFullDate(e.event_date)} • ${e.time_start||''}`,'',...(e.required_functions||[]).map(fn=>{const a=eventAssignments(e).find(x=>(x.function_name||x.function)===fn);return `${fn}: ${a?memberName(a.user_id):'A definir'}`;}),'','IMV • Ministério de Louvor'];const url=`https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;window.open(url,'_blank','noopener');}
+
+  async function saveUnavailability(){const start=unavStart.value,end=unavEnd.value||start;if(end<start)return toast('A data final não pode ser anterior.','error');let u={id:uid(),user_id:state.user.id,start_date:start,end_date:end,reason:unavReason.value.trim()};if(supabaseClient){const {data,error}=await supabaseClient.from('unavailability').insert({user_id:u.user_id,start_date:start,end_date:end,reason:u.reason}).select().single();if(error)return toast(error.message,'error');u=data;}state.unavailability.push(u);store.saveDemo();state.modal=null;render();toast('Indisponibilidade salva.');}
+  async function deleteUnavailability(id){if(supabaseClient){const {error}=await supabaseClient.from('unavailability').delete().eq('id',id);if(error)return toast(error.message,'error');}state.unavailability=state.unavailability.filter(x=>x.id!==id);store.saveDemo();render();}
+
+  async function fileToDataUrl(file){return await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);});}
+
+  async function saveMember(id){
+    const functions=[...document.querySelectorAll('input[name=memberFn]:checked')].map(x=>x.value);
+    const existing=id?findMember(id):null;
+    const photoFile=document.getElementById('memberPhoto')?.files?.[0];
+    let avatar_url=existing?.avatar_url||'';
+    if(photoFile){try{avatar_url=document.getElementById('memberPhoto')?.dataset.avatarDataUrl||await avatarFileToDataUrl(photoFile);}catch(err){return toast(err?.message||'Não foi possível carregar a foto.','error');}}
+    const patch={name:document.getElementById('memberName').value.trim(),phone:document.getElementById('memberPhone').value.trim(),birth_date:document.getElementById('memberBirthDate').value||null,role:document.getElementById('memberRole').value,functions,avatar_url,is_ministry_leader:document.getElementById('memberLeader').checked,active:true};
+    if(id){const m=findMember(id);Object.assign(m,patch);if(supabaseClient){const {error}=await supabaseClient.from('profiles').update(patch).eq('id',id);if(error)return toast(error.message,'error');}}
+    else {if(supabaseClient)return toast('O cadastro online de novos integrantes é feito pela pré-inscrição do administrador.');state.members.push({id:uid(),...patch});}
+    store.saveDemo();state.modal=null;render();toast('Integrante atualizado.');
+  }
+
+  async function saveSong(){let s={id:uid(),title:songTitle.value.trim(),artist:'',default_key:songDefaultKey.value,lyrics:songLyrics.value};if(!s.title)return toast('Informe o título.','error');if(supabaseClient){const {data,error}=await supabaseClient.from('songs').insert({title:s.title,artist:'',default_key:s.default_key,lyrics:s.lyrics,created_by:state.user.id}).select().single();if(error)return toast(error.message,'error');s=data;}state.songs.push(s);state.selectedSong=s.id;state.songKey=s.default_key;store.saveDemo();state.modal=null;render();toast('Música adicionada.');}
+
+  async function markAllRead(){state.notifications.forEach(n=>n.read=true);if(supabaseClient)await supabaseClient.from('notifications').update({read:true}).eq('recipient_id',state.user.id);store.saveDemo();render();}
+  async function saveProfile(e){e.preventDefault();const name=profileName.value.trim().replace(/\s+/g,' '),phone=profilePhone.value.trim(),birth_date=profileBirthDate.value;if(name.split(' ').filter(Boolean).length<2)return toast('Digite seu nome completo.','error');if(!birth_date)return toast('Informe sua data de nascimento.','error');let avatar_url=state.user.avatar_url||'';const input=document.getElementById('profilePhoto'),f=input?.files?.[0];if(f){try{avatar_url=input.dataset.avatarDataUrl||await avatarFileToDataUrl(f);}catch(err){return toast(err?.message||'Não foi possível carregar a foto.','error');}}const patch={name,phone,birth_date,avatar_url,onboarding_complete:true};Object.assign(state.user,patch);const m=findMember(state.user.id);if(m)Object.assign(m,patch);if(supabaseClient){const {error}=await supabaseClient.from('profiles').update(patch).eq('id',state.user.id);if(error)return toast(error.message,'error');}store.saveDemo();toast('Perfil salvo.');render();}
+  async function savePassword(){if(!supabaseClient)return;const password=newPassword.value;if(password.length<8)return toast('Use pelo menos 8 caracteres.','error');const {error}=await supabaseClient.auth.updateUser({password});if(error)return toast(error.message,'error');state.modal=null;render();toast('Senha atualizada.');}
+  async function logout(){if(supabaseClient){await supabaseClient.auth.signOut();}else{state.user=null;localStorage.removeItem('imv-louvor-demo-v1');}state.view='dashboard';syncViewUrl('dashboard',{replace:true});render();}
+
+  const KEYS=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const FLAT_TO_SHARP={'Db':'C#','Eb':'D#','Gb':'F#','Ab':'G#','Bb':'A#'};
+  function keyIndex(k){return KEYS.indexOf(FLAT_TO_SHARP[k]||k);}
+  function transposeChord(chord,steps){return chord.replace(/^([A-G])([#b]?)(.*)$/,(all,n,acc,rest)=>{const base=n+acc,idx=keyIndex(base);if(idx<0)return all;return KEYS[(idx+steps+120)%12]+rest.replace(/\/([A-G])([#b]?)/g,(m,n2,a2)=>{const i2=keyIndex(n2+a2);return i2<0?m:`/${KEYS[(i2+steps+120)%12]}`;});});}
+  function transposeSelected(delta){const s=state.songs.find(x=>x.id===state.selectedSong);if(!s)return;const i=keyIndex(state.songKey||s.default_key);state.songKey=KEYS[(i+delta+12)%12];render();}
+  function renderChordSheet(text,original,target){const steps=(keyIndex(target)-keyIndex(original)+12)%12;return esc(text).split('\n').map(line=>{const parts=line.split(/(\s+)/);return parts.map(part=>{const raw=part.replace(/&amp;/g,'&');if(/^[A-G](?:#|b)?(?:m|maj|min|sus|dim|aug|add|M)?\d*(?:\/[A-G](?:#|b)?)?$/.test(raw)){return `<span class="chord">${esc(transposeChord(raw,steps))}</span>`;}return part;}).join('');}).join('\n');}
+
+  init();
+})();
+</script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script></body></html>
