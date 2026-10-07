@@ -123,11 +123,15 @@ html,body,#app{min-height:100%;min-height:100dvh}
   .splash-logo,.splash-screen:before,.splash-screen:after,.splash-church,.splash-ministry{animation-duration:.01ms!important}
 }
 
-</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head><body><div id="app"></div><script>window.IMV_CONFIG={SUPABASE_URL:"https://adrywvwyocdgrwcsgwpu.supabase.co",SUPABASE_ANON_KEY:"sb_publishable_j-YVzFiwVb20s-RIqBjdkQ_7dPB8Qqg",APP_URL:"https://imv-louvor-v1.onrender.com"};</script><script>/* IMV • Ministério de Louvor — V1 */
+</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/rotation-pattern.js?v=1"></script><script src="/scheduler.js?v=1"></script></head><body><div id="app"></div><script>window.IMV_CONFIG={SUPABASE_URL:"https://adrywvwyocdgrwcsgwpu.supabase.co",SUPABASE_ANON_KEY:"sb_publishable_j-YVzFiwVb20s-RIqBjdkQ_7dPB8Qqg",APP_URL:"https://app-louvor-imv.onrender.com"};</script><script>/* IMV • Ministério de Louvor — V1 */
 (() => {
   'use strict';
 
   const CFG = window.IMV_CONFIG || {};
+  const rotationPattern = window.IMV_ROTATION_PATTERN;
+  const scheduler = window.IMVScheduler;
+  let remoteLoadPromise = null;
+  let rollingSchedulePromise = null;
   const isSupabaseConfigured = /^https:\/\//.test(CFG.SUPABASE_URL || '') && !(CFG.SUPABASE_URL || '').includes('__SUPABASE_');
   const supabaseClient = isSupabaseConfigured && window.supabase
     ? window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY, {
@@ -330,10 +334,10 @@ html,body,#app{min-height:100%;min-height:100dvh}
       const {data:{session}}=await supabaseClient.auth.getSession();
       state.session=session;
       if(session) await loadRemoteState(session.user);
-      supabaseClient.auth.onAuthStateChange(async (_event,session2)=>{
+      supabaseClient.auth.onAuthStateChange((_event,session2)=>{
         state.session=session2;
         if(session2){
-          await loadRemoteState(session2.user);
+          setTimeout(async()=>{await loadRemoteState(session2.user);render();},0);
         }else{
           state.user=null; state.members=[]; state.events=[]; state.notifications=[]; state.mustChangePassword=false;
         }
@@ -346,7 +350,13 @@ html,body,#app{min-height:100%;min-height:100dvh}
     render();
   }
 
-  async function loadRemoteState(authUser){
+  function loadRemoteState(authUser){
+    if(remoteLoadPromise) return remoteLoadPromise;
+    remoteLoadPromise=loadRemoteStateNow(authUser).finally(()=>{remoteLoadPromise=null;});
+    return remoteLoadPromise;
+  }
+
+  async function loadRemoteStateNow(authUser){
     state.demo=false;
     const [profiles,events,assignments,unav,songs,notifs,eventSongs] = await Promise.all([
       supabaseClient.from('profiles').select('*').order('name'),
@@ -623,10 +633,10 @@ html,body,#app{min-height:100%;min-height:100dvh}
     const monthKey=`${y}-${String(m+1).padStart(2,'0')}`;
     const monthEvents=visibleEvents().filter(e=>e.event_date.startsWith(monthKey)).sort((a,b)=>a.event_date.localeCompare(b.event_date)||(a.time_start||'').localeCompare(b.time_start||''));
     const monthLabel=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(d);
-    return `<div class="calendar-shell"><section class="calendar"><div class="calendar-head"><div><div class="small muted">AGENDA</div><div class="calendar-title">${monthLabel}</div></div><div class="cal-controls"><button class="icon-btn" id="prevMonth">‹</button><button class="ghost-btn" id="todayBtn">Hoje</button><button class="icon-btn" id="nextMonth">›</button>${can('create_event')?'<button class="white-btn calendar-create-top" id="newEventTop">+ Criar evento</button>':''}${state.user.role==='admin'?'<button class="ghost-btn calendar-create-top" id="generateSchedule">Gerar / atualizar 2 meses</button>':''}</div></div>
+    return `<div class="calendar-shell"><section class="calendar"><div class="calendar-head"><div><div class="small muted">AGENDA</div><div class="calendar-title">${monthLabel}</div></div><div class="cal-controls"><button class="icon-btn" id="prevMonth">‹</button><button class="ghost-btn" id="todayBtn">Hoje</button><button class="icon-btn" id="nextMonth">›</button>${can('create_event')?'<button class="white-btn calendar-create-top" id="newEventTop">+ Criar evento</button>':''}${state.user.role==='admin'?'<button class="ghost-btn calendar-create-top" id="generateSchedule">Gerar / atualizar escalas</button>':''}</div></div>
       <div class="mobile-calendar-list"><div class="mobile-calendar-month">Eventos de ${monthLabel}</div>${monthEvents.length?monthEvents.map(eventCard).join(''):'<div class="empty">Nenhum evento neste mês.</div>'}</div>
       <div class="cal-week">${['DOM','SEG','TER','QUA','QUI','SEX','SÁB'].map(x=>`<div>${x}</div>`).join('')}</div><div class="cal-grid">${cells.map(day=>{const key=isoDate(day), events=visibleEvents().filter(e=>e.event_date===key);return `<div class="day ${day.getMonth()!==m?'outside':''} ${key===isoDate(new Date())?'today':''}" data-day="${key}"><div class="day-num">${day.getDate()}</div>${events.slice(0,3).map(e=>`<div class="event-pill ${eventAssignments(e).length<(e.required_functions||[]).length?'alert':''}" data-event="${e.id}"><b>${esc(e.event_type)}</b><span class="time">${esc(e.time_start||'')}</span></div>`).join('')}${events.length>3?`<div class="tiny muted">+${events.length-3}</div>`:''}</div>`}).join('')}</div></section>
-      <aside class="side-panel"><div class="card"><div class="section-head"><h2>Próximos</h2>${can('create_event')?`<button class="white-btn" id="newEventSide">+ Criar</button>`:''}</div><div class="agenda-list">${upcoming.map(eventCard).join('')||'<div class="empty">Sem eventos.</div>'}</div></div><div class="card"><div class="small muted">AUTOESCALA</div><h3 style="margin:7px 0 8px">Sem meta de escala.</h3><p class="small muted" style="line-height:1.6;margin:0">O sistema respeita indisponibilidade, função e conflito no dia. Entre os disponíveis, prioriza quem tem menos escalas no mês. Se ninguém puder servir, o ministro do evento recebe um alerta.</p></div></aside></div>`;
+      <aside class="side-panel"><div class="card"><div class="section-head"><h2>Próximos</h2>${can('create_event')?`<button class="white-btn" id="newEventSide">+ Criar</button>`:''}</div><div class="agenda-list">${upcoming.map(eventCard).join('')||'<div class="empty">Sem eventos.</div>'}</div></div><div class="card"><div class="small muted">AUTOESCALA</div><h3 style="margin:7px 0 8px">Rodízio por equipes.</h3><p class="small muted" style="line-height:1.6;margin:0">Gabriel e Nilma alternam os domingos de manhã. A mesma banda toca de manhã e à noite, com rodízio entre as semanas. Ministros e backs mantêm seus conjuntos; a equipe técnica também participa do rodízio. As funções e indisponibilidades têm prioridade.</p></div></aside></div>`;
   }
 
   function teamView(){
@@ -636,7 +646,7 @@ html,body,#app{min-height:100%;min-height:100dvh}
 
   function availabilityView(){
     const mine=state.unavailability.filter(u=>u.user_id===state.user.id).sort((a,b)=>a.start_date.localeCompare(b.start_date));
-    return `<div class="grid grid-2"><section class="card"><div class="section-head"><div><h2>Minha indisponibilidade</h2><div class="small muted">O sistema nunca te escala dentro dessas datas.</div></div><button class="white-btn" id="newUnav">+ Marcar</button></div><div class="agenda-list">${mine.length?mine.map(u=>`<div class="agenda-item"><div class="agenda-title">${fmtDate(u.start_date)}${u.end_date!==u.start_date?` → ${fmtDate(u.end_date)}`:''}</div><div class="agenda-meta">${esc(u.reason||'Sem motivo informado')}</div><button class="link-btn" data-del-unav="${u.id}" style="margin-top:8px">Remover</button></div>`).join(''):'<div class="empty">Você não marcou nenhuma indisponibilidade.</div>'}</div></section><section class="card"><div class="small muted">COMO FUNCIONA</div><h2 style="margin:8px 0">Sua indisponibilidade tem prioridade.</h2><p class="muted small" style="line-height:1.7">Ao montar uma escala automática, o sistema elimina primeiro quem marcou indisponibilidade, quem já está em outra função no mesmo evento e quem não possui a função necessária. Depois equilibra a escolha pela quantidade de escalas no mês.</p></section></div>`;
+    return `<div class="grid grid-2"><section class="card"><div class="section-head"><div><h2>Minha indisponibilidade</h2><div class="small muted">O sistema nunca te escala dentro dessas datas.</div></div><button class="white-btn" id="newUnav">+ Marcar</button></div><div class="agenda-list">${mine.length?mine.map(u=>`<div class="agenda-item"><div class="agenda-title">${fmtDate(u.start_date)}${u.end_date!==u.start_date?` → ${fmtDate(u.end_date)}`:''}</div><div class="agenda-meta">${esc(u.reason||'Sem motivo informado')}</div><button class="link-btn" data-del-unav="${u.id}" style="margin-top:8px">Remover</button></div>`).join(''):'<div class="empty">Você não marcou nenhuma indisponibilidade.</div>'}</div></section><section class="card"><div class="small muted">COMO FUNCIONA</div><h2 style="margin:8px 0">Sua indisponibilidade tem prioridade.</h2><p class="muted small" style="line-height:1.7">O rodízio respeita suas funções e indisponibilidades. O sistema mantém a banda nos dois cultos de domingo e só escala Gabriel ou Nilma nas manhãs. Um músico também pode cantar, se tiver essa função cadastrada; as funções técnicas não são acumuladas no mesmo culto. Se uma equipe não estiver disponível, a pendência aparece na escala.</p></section></div>`;
   }
 
   function songsView(){
@@ -683,9 +693,9 @@ html,body,#app{min-height:100%;min-height:100dvh}
     return modalWrap('Criar evento',`<form id="eventForm" class="form-grid"><div class="field"><label>Tipo</label><select class="select" id="eventType">${eventTypes.map(t=>`<option>${esc(t)}</option>`).join('')}</select></div><div class="field"><label>Nome do evento</label><input class="input" id="eventTitle" placeholder="Ex.: Culto de terça"></div><div class="field"><label>Data</label><input class="input" id="eventDate" type="date" value="${date}" required></div><div class="field"><label>Horário</label><input class="input" id="eventTime" type="time" value="19:30" required></div><div class="field"><label>Ministro / responsável</label><select class="select" id="eventMinister"><option value="">A definir</option>${state.members.filter(x=>x.active!==false&&(x.functions||[]).includes('Ministro')).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>Local</label><input class="input" id="eventLocation" value="IMV"></div><div class="field full"><label>Equipe necessária</label><div class="schedule-groups">${slotOptions}</div></div><div class="field full"><label>Observações</label><textarea class="textarea" id="eventNotes"></textarea></div></form>`,`<button class="ghost-btn" id="cancelModal">Cancelar</button><button class="white-btn" id="saveEvent">Criar e abrir escala</button>`);
   }
 
-  function slotCandidates(slot){
+  function slotCandidates(slot,event){
     const needed=slotFunction(slot);
-    return state.members.filter(m=>m.active!==false&&(m.functions||[]).includes(needed)).sort((a,b)=>a.name.localeCompare(b.name));
+    return state.members.filter(m=>scheduler.qualified(m,needed)).filter(m=>slot!=='Ministro'||!event||!scheduler.isMorning(event)||(rotationPattern.morning_ministers||[]).some(n=>scheduler.resolve(n,state.members,rotationPattern)?.id===m.id)).sort((a,b)=>a.name.localeCompare(b.name));
   }
 
   function eventDetailModal(e){
@@ -699,7 +709,7 @@ html,body,#app{min-height:100%;min-height:100dvh}
         const a=assigns.find(x=>(x.function_name||x.function)===fn);
         const person=a?findMember(a.user_id):null;
         if(can('edit_event')){
-          const options=slotCandidates(fn).map(m=>`<option value="${m.id}" ${a?.user_id===m.id?'selected':''}>${esc(m.name)}</option>`).join('');
+          const options=slotCandidates(fn,e).map(m=>`<option value="${m.id}" ${a?.user_id===m.id?'selected':''}>${esc(m.name)}</option>`).join('');
           return `<div class="schedule-slot"><div class="schedule-slot-name">${esc(fn)}</div><select class="select" data-manual-slot="${esc(fn)}" data-event-id="${e.id}"><option value="">A definir</option>${options}</select></div>`;
         }
         return `<div class="schedule-slot"><div class="schedule-slot-name">${esc(fn)}</div><div class="member-cell">${person?avatar(person):'<div class="avatar">—</div>'}<div><b>${person?esc(person.name):'A definir'}</b></div></div></div>`;
@@ -737,7 +747,7 @@ html,body,#app{min-height:100%;min-height:100dvh}
     document.getElementById('quickEvent')?.addEventListener('click',()=>openEventModal());
     document.getElementById('newEventSide')?.addEventListener('click',()=>openEventModal());
     document.getElementById('newEventTop')?.addEventListener('click',()=>openEventModal());
-    document.getElementById('generateSchedule')?.addEventListener('click',()=>ensureRollingSchedule({silent:false}));
+    document.getElementById('generateSchedule')?.addEventListener('click',()=>ensureRollingSchedule({silent:false,regenerate:true}));
     document.getElementById('prevMonth')?.addEventListener('click',()=>{state.calendarCursor=new Date(state.calendarCursor.getFullYear(),state.calendarCursor.getMonth()-1,1);render();});
     document.getElementById('nextMonth')?.addEventListener('click',()=>{state.calendarCursor=new Date(state.calendarCursor.getFullYear(),state.calendarCursor.getMonth()+1,1);render();});
     document.getElementById('todayBtn')?.addEventListener('click',()=>{state.calendarCursor=new Date();render();});
@@ -795,7 +805,7 @@ html,body,#app{min-height:100%;min-height:100dvh}
   }
   function closeModal(){state.modal=null;render();}
   function openEventModal(date){state.modal={type:'event',date:date||isoDate(new Date())};render();}
-  function syncEventDefaults(){const t=document.getElementById('eventType');if(!t)return;const title=document.getElementById('eventTitle'),time=document.getElementById('eventTime');if(!title||title.dataset.touched)return;const map={'Terça-feira':['Culto de Terça','19:30'],'Domingo • Manhã':['Culto de Domingo • Manhã','09:00'],'Domingo • Noite':['Culto de Domingo • Noite','19:00'],'BRAVE':['BRAVE','19:00'],'Culto de Mulheres':['Culto de Mulheres','19:30'],'Outro':['','19:00']};title.value=map[t.value][0];time.value=map[t.value][1];}
+  function syncEventDefaults(){const t=document.getElementById('eventType');if(!t)return;const title=document.getElementById('eventTitle'),time=document.getElementById('eventTime');if(!title||title.dataset.touched)return;const map={'Terça-feira':['Culto de Terça','19:30'],'Domingo • Manhã':['Culto de Domingo • Manhã','08:00'],'Domingo • Noite':['Culto de Domingo • Noite','18:30'],'BRAVE':['BRAVE','19:00'],'Culto de Mulheres':['Culto de Mulheres','19:30'],'Outro':['','19:00']};title.value=map[t.value][0];time.value=map[t.value][1];}
 
   async function saveEvent(){
     const title=eventTitle.value.trim()||eventType.value, required=[...document.querySelectorAll('input[name=requiredFn]:checked')].map(x=>x.value);
@@ -806,37 +816,86 @@ html,body,#app{min-height:100%;min-height:100dvh}
   }
 
   function isUnavailable(userId,date){return state.unavailability.some(u=>u.user_id===userId && date>=u.start_date && date<=u.end_date);}
-  function monthlyCount(userId,date){const ym=date.slice(0,7);return visibleEvents().filter(e=>e.event_date.startsWith(ym)).flatMap(eventAssignments).filter(a=>a.user_id===userId).length;}
-  function candidateFor(fn,e,used){const needed=slotFunction(fn);return state.members.filter(m=>m.active!==false && (m.functions||[]).includes(needed) && !used.has(m.id) && !isUnavailable(m.id,e.event_date)).filter(m=>!visibleEvents().some(other=>other.id!==e.id&&other.event_date===e.event_date&&eventAssignments(other).some(a=>a.user_id===m.id))).sort((a,b)=>monthlyCount(a.id,e.event_date)-monthlyCount(b.id,e.event_date)||a.name.localeCompare(b.name))[0];}
 
-  function computeAutoSchedule(e){
-    const used=new Set(),result=[],missing=[];
-    for(const fn of (e.required_functions||coreEventSlots)){
-      let c=null;
-      if(fn==='Ministro'&&e.minister_id){const m=findMember(e.minister_id);if(m&&!isUnavailable(m.id,e.event_date))c=m;}
-      if(!c)c=candidateFor(fn,e,used);
-      if(c){used.add(c.id);result.push({id:uid(),event_id:e.id,user_id:c.id,function_name:fn,confirmation_status:'pending'});} else missing.push(fn);
+
+  async function persistSchedulePlans(plans){
+    const invalid=plans.find(p=>p.issues.some(issue=>!issue.startsWith('Nenhuma equipe')));
+    if(invalid){toast(invalid.issues.join(' '),'error');return false;}
+    const targets=plans.map(p=>state.events.find(e=>e.id===p.event_id));
+    const deleted=[],inserts=[];
+    for(let i=0;i<plans.length;i++){
+      const p=plans[i],e=targets[i],keep=new Set(p.result.filter(a=>a.id).map(a=>a.id));
+      deleted.push(...eventAssignments(e).filter(a=>!keep.has(a.id)&&!scheduler.locked(a)));
+      const known=new Set(eventAssignments(e).map(a=>a.id));
+      for(const a of p.result)if(!a.id||!known.has(a.id))inserts.push({event_id:e.id,user_id:a.user_id,function_name:a.function_name,confirmation_status:'pending'});
     }
-    return {result,missing};
+    if(supabaseClient){
+      if(deleted.length){
+        const res=await supabaseClient.from('event_assignments').delete().in('id',deleted.map(a=>a.id));
+        if(res.error){toast('Não foi possível atualizar as posições existentes.','error');return false;}
+      }
+      if(inserts.length){
+        const res=await supabaseClient.from('event_assignments').insert(inserts).select();
+        if(res.error){
+          if(deleted.length){
+            const restored=await supabaseClient.from('event_assignments').insert(deleted.map(a=>({id:a.id,event_id:a.event_id,user_id:a.user_id,function_name:a.function_name,confirmation_status:a.confirmation_status||'pending'})));
+            if(restored.error){toast('A gravação falhou e algumas posições precisam de revisão. Atualize a agenda antes de continuar.','error');return false;}
+          }
+          toast('Não foi possível salvar o rodízio. As posições anteriores foram preservadas.','error');return false;
+        }
+        for(const p of plans)for(const a of p.result){
+          const saved=res.data.find(x=>x.event_id===p.event_id&&x.user_id===a.user_id&&x.function_name===a.function_name);
+          if(saved)Object.assign(a,saved);
+        }
+      }
+    }else for(const p of plans)for(const a of p.result)if(!a.id)a.id=uid();
+    let metadataFailure=false;
+    for(let i=0;i<plans.length;i++){
+      const p=plans[i],e=targets[i];
+      const notes=(e.notes||'').replace(/\s*\[IMV-rotation:[^\]]+\]/g,'')+` [IMV-rotation:${rotationPattern.version}]`;
+      const patch={minister_id:p.minister_id,required_functions:p.required_functions,notes};
+      if(supabaseClient){
+        const saved=await supabaseClient.from('events').update(patch).eq('id',e.id);
+        if(saved.error)metadataFailure=true;
+        else Object.assign(e,patch);
+      }else Object.assign(e,patch);
+      e.assignments=p.result;
+    }
+    const notifications=[];
+    for(const a of inserts){
+      const e=state.events.find(e=>e.id===a.event_id);
+      notifications.push({recipient_id:a.user_id,title:'Você foi escalado',body:`${e.title} • ${fmtDate(e.event_date)} • ${a.function_name}.`,type:'assignment'});
+    }
+    for(const p of plans)if(p.missing.length){
+      const e=state.events.find(e=>e.id===p.event_id),recipient=e.minister_id||e.created_by;
+      if(recipient)notifications.push({recipient_id:recipient,title:'Não foi possível fechar a escala',body:`${e.title}: posições pendentes — ${p.missing.join(', ')}.`,type:'no_available'});
+    }
+    if(supabaseClient&&notifications.length){
+      const res=await supabaseClient.from('notifications').insert(notifications).select();
+      if(!res.error)state.notifications.unshift(...res.data.filter(n=>n.recipient_id===state.user.id));
+      else toast('Escalas salvas; alguns avisos não puderam ser gravados.','error');
+    }else state.notifications.unshift(...notifications.map(n=>({...n,id:uid(),read:false,created_at:new Date().toISOString()})));
+    store.saveDemo();
+    if(metadataFailure){toast('As posições foram salvas, mas os dados de alguns eventos precisam de revisão. Atualize a agenda.','error');return false;}
+    return true;
   }
 
   async function autoSchedule(eventId,options={}){
-    const e=state.events.find(x=>x.id===eventId);if(!e)return;
-    const {result,missing}=computeAutoSchedule(e);
-    if(supabaseClient){
-      const del=await supabaseClient.from('event_assignments').delete().eq('event_id',e.id);if(del.error)return toast(del.error.message,'error');
-      if(result.length){const payload=result.map(({id,...r})=>r);const ins=await supabaseClient.from('event_assignments').insert(payload).select();if(ins.error)return toast(ins.error.message,'error');result.splice(0,result.length,...ins.data);}
-    }
-    e.assignments=result;
-    if(missing.length){await addNotification(e.minister_id||e.created_by,'Não foi possível fechar a escala',`No evento ${e.title}, não há ninguém disponível para: ${missing.join(', ')}.`,'no_available');}
-    for(const a of result){await addNotification(a.user_id,'Você foi escalado',`${e.title} • ${fmtDate(e.event_date)} • ${a.function_name}.`,'assignment');}
-    store.saveDemo();
-    if(!options.silent){state.modal={type:'eventDetail',event:e};render();toast(missing.length?'Escala montada com pendências.':'Escala montada automaticamente.',missing.length?'error':'');}
-    return {result,missing};
+    const e=state.events.find(x=>x.id===eventId);if(!e||!can('auto_schedule'))return;
+    // Rebuild both Sunday services together, even when the action starts in the evening.
+    const sunday=e.event_type.startsWith('Domingo')&&new Date(`${e.event_date}T12:00:00`).getDay()===0;
+    const targets=sunday?visibleEvents().filter(x=>x.event_date===e.event_date&&x.event_type.startsWith('Domingo')):[e];
+    const plans=scheduler.planEvents({members:state.members,events:visibleEvents(),targets,unavailability:state.unavailability,pattern:rotationPattern});
+    if(!await persistSchedulePlans(plans))return;
+    const plan=plans.find(p=>p.event_id===e.id);
+    if(!options.silent){state.modal={type:'eventDetail',event:e};render();toast(plans.some(p=>p.missing.length)?'Escala montada com pendências.':'Rodízio atualizado.',plans.some(p=>p.missing.length)?'error':'');}
+    return plan;
   }
 
   async function setManualAssignment(eventId,slot,userId){
     const e=state.events.find(x=>x.id===eventId);if(!e||!can('edit_event'))return;
+    if(userId&&!slotCandidates(slot,e).some(m=>m.id===userId)){toast('Pessoa incompatível com a função ou com a regra deste culto.','error');state.modal={type:'eventDetail',event:e};render();return;}
+    if(userId&&isUnavailable(userId,e.event_date)){toast('Essa pessoa marcou indisponibilidade nessa data.','error');state.modal={type:'eventDetail',event:e};render();return;}
     const previous=eventAssignments(e).find(a=>(a.function_name||a.function)===slot);
     let inserted=null;
     if(supabaseClient){
@@ -864,61 +923,66 @@ html,body,#app{min-height:100%;min-height:100dvh}
     e.status='cancelled';e.assignments=[];state.modal=null;render();toast('Evento removido da agenda.');
   }
 
-  async function ensureRecurringEvents(){
-    if(!supabaseClient||state.user?.role!=='admin')return 0;
+  function scheduleWindow(){
     const start=new Date();start.setHours(12,0,0,0);
     const end=new Date(start);end.setMonth(end.getMonth()+2);
-    const templates=[
-      {dow:2,key:'weekly-tuesday',title:'Culto de Terça',event_type:'Terça-feira',time_start:'19:30'},
-      {dow:0,key:'weekly-sunday-am',title:'Culto de Domingo • Manhã',event_type:'Domingo • Manhã',time_start:'09:00'},
-      {dow:0,key:'weekly-sunday-pm',title:'Culto de Domingo • Noite',event_type:'Domingo • Noite',time_start:'19:00'}
-    ];
-    const existing=new Set(state.events.filter(e=>e.recurrence_key).map(e=>`${e.recurrence_key}:${e.event_date}`));
-    const rows=[];
-    for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
-      for(const t of templates){
-        if(d.getDay()!==t.dow)continue;
-        const date=isoDate(d),key=`${t.key}:${date}`;
-        if(existing.has(key))continue;
-        rows.push({title:t.title,event_type:t.event_type,event_date:date,time_start:t.time_start,time_end:null,location:'IMV',minister_id:null,created_by:state.user.id,status:'published',required_functions:coreEventSlots,notes:'Gerado automaticamente pelo ciclo de 2 meses.',recurrence_key:t.key});
-        existing.add(key);
-      }
-    }
-    if(!rows.length)return 0;
-    const ins=await supabaseClient.from('events').insert(rows).select();
-    if(ins.error){console.error(ins.error);toast('Não foi possível atualizar os cultos recorrentes.','error');return 0;}
-    state.events.push(...ins.data.map(e=>({...e,assignments:[]})));
-    return ins.data.length;
+    const today=isoDate(start);
+    // The first imported cycle ends at the last service that actually exists in Planning.
+    const horizon=today<=rotationPattern.source_end_date?rotationPattern.source_end_date:isoDate(end);
+    return {start,end,today,horizon};
   }
 
-  async function ensureRollingSchedule({silent=false}={}){
+  async function ensureRecurringEvents(){
+    if(!supabaseClient||state.user?.role!=='admin')return 0;
+    const {start,end,today,horizon}=scheduleWindow();
+    const slots=coreEventSlots.filter(f=>f!=='Mídia'||state.members.some(m=>scheduler.qualified(m,f)));
+    let definitions;
+    if(today<=rotationPattern.source_end_date)definitions=rotationPattern.services.filter(e=>e.event_date>=today&&e.event_date<=horizon);
+    else{
+      definitions=[];
+      const templates=[
+        {dow:0,recurrence_key:'weekly-sunday-am',title:'Culto de Domingo • Manhã',event_type:'Domingo • Manhã',time_start:'08:00'},
+        {dow:0,recurrence_key:'weekly-sunday-pm',title:'Culto de Domingo • Noite',event_type:'Domingo • Noite',time_start:'18:30'},
+        {dow:2,recurrence_key:'weekly-tuesday',title:'Culto de Terça',event_type:'Terça-feira',time_start:'19:30'}
+      ];
+      for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1))for(const t of templates)if(d.getDay()===t.dow)definitions.push({...t,event_date:isoDate(d)});
+    }
+    const rows=[];
+    for(const t of definitions){
+      const existing=visibleEvents().find(e=>e.event_date===t.event_date&&(e.event_type===t.event_type||e.recurrence_key===t.recurrence_key));
+      if(existing){
+        if(existing.recurrence_key&&String(existing.time_start||'').slice(0,5)!==t.time_start){
+          const upd=await supabaseClient.from('events').update({time_start:t.time_start}).eq('id',existing.id);
+          if(upd.error){toast('Não foi possível ajustar o horário de um culto.','error');continue;}
+          existing.time_start=t.time_start;
+        }
+        continue;
+      }
+      rows.push({title:t.title,event_type:t.event_type,event_date:t.event_date,time_start:t.time_start,time_end:null,location:'IMV',minister_id:null,created_by:state.user.id,status:'published',required_functions:slots,notes:'Gerado automaticamente pelo ciclo de 2 meses.',recurrence_key:t.recurrence_key});
+    }
+    if(!rows.length)return 0;
+    const res=await supabaseClient.from('events').insert(rows).select();
+    if(res.error){toast('Não foi possível criar os cultos recorrentes.','error');return 0;}
+    state.events.push(...res.data.map(e=>({...e,assignments:[]})));
+    return res.data.length;
+  }
+
+  function ensureRollingSchedule(options={}){
+    if(rollingSchedulePromise)return rollingSchedulePromise;
+    rollingSchedulePromise=updateRollingSchedule(options).finally(()=>{rollingSchedulePromise=null;});
+    return rollingSchedulePromise;
+  }
+
+  async function updateRollingSchedule({silent=false,regenerate=false}={}){
     if(!supabaseClient||state.user?.role!=='admin'||!state.user?.onboarding_complete)return;
     const created=await ensureRecurringEvents();
-    const today=isoDate(new Date());
-    const horizonDate=new Date();horizonDate.setMonth(horizonDate.getMonth()+2);
-    const horizon=isoDate(horizonDate);
-    const targets=visibleEvents().filter(e=>e.event_date>=today&&e.event_date<=horizon&&!eventAssignments(e).length).sort((a,b)=>a.event_date.localeCompare(b.event_date)||(a.time_start||'').localeCompare(b.time_start||''));
-    const allAssignments=[],allNotifications=[];
-    let pendingCount=0;
-    for(const e of targets){
-      const {result,missing}=computeAutoSchedule(e);
-      e.assignments=result;
-      for(const a of result)allAssignments.push({event_id:e.id,user_id:a.user_id,function_name:a.function_name,confirmation_status:'pending'});
-      for(const a of result)allNotifications.push({recipient_id:a.user_id,title:'Você foi escalado',body:`${e.title} • ${fmtDate(e.event_date)} • ${a.function_name}.`,type:'assignment'});
-      if(missing.length){pendingCount+=missing.length;const recipient=e.minister_id||e.created_by;if(recipient)allNotifications.push({recipient_id:recipient,title:'Não foi possível fechar a escala',body:`No evento ${e.title}, não há ninguém disponível para: ${missing.join(', ')}.`,type:'no_available'});}
-    }
-    if(allAssignments.length){
-      const ins=await supabaseClient.from('event_assignments').insert(allAssignments).select();
-      if(ins.error){console.error(ins.error);return toast('Os cultos foram criados, mas houve erro ao montar as escalas.','error');}
-      const byEvent=new Map();
-      for(const a of ins.data){if(!byEvent.has(a.event_id))byEvent.set(a.event_id,[]);byEvent.get(a.event_id).push(a);}
-      for(const e of targets)e.assignments=byEvent.get(e.id)||[];
-    }
-    if(allNotifications.length){
-      const n=await supabaseClient.from('notifications').insert(allNotifications).select();
-      if(!n.error)state.notifications.unshift(...n.data.filter(x=>x.recipient_id===state.user.id));
-    }
-    if(!silent){render();toast(`Agenda atualizada: ${created} culto(s) criado(s), ${targets.length} escala(s) gerada(s)${pendingCount?` e ${pendingCount} posição(ões) pendente(s)`:''}.`,pendingCount?'error':'');}
+    const {today,horizon}=scheduleWindow(),marker=`[IMV-rotation:${rotationPattern.version}]`;
+    const targets=visibleEvents().filter(e=>e.event_date>=today&&e.event_date<=horizon&&(!eventAssignments(e).length||regenerate||(e.recurrence_key&&!String(e.notes||'').includes(marker))));
+    if(!targets.length){if(!silent)toast('As escalas já seguem o padrão de rodízio.');return;}
+    const plans=scheduler.planEvents({members:state.members,events:visibleEvents(),targets,unavailability:state.unavailability,pattern:rotationPattern});
+    if(!await persistSchedulePlans(plans))return;
+    const missing=plans.reduce((n,p)=>n+p.missing.length,0);
+    if(!silent){render();toast(`${created} culto(s) criado(s), ${targets.length} escala(s) atualizada(s)${missing?` e ${missing} posição(ões) pendente(s)`:''}.`,missing?'error':'');}
   }
 
   async function ensureBirthdayAlert(){

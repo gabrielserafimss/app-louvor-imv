@@ -1,9 +1,9 @@
-const CACHE_VERSION = "imv-louvor-pwa-v13";
+const CACHE_VERSION = "imv-louvor-pwa-v14";
 
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_VERSION).then(cache =>
-      cache.addAll(["/", "/manifest.webmanifest?v=8", "/imv-app-icon.svg?v=9", "/imv-logo.svg", "/apple-touch-icon-v9.png", "/pwa-192-v9.png"])
+      cache.addAll(["/", "/rotation-pattern.js?v=1", "/scheduler.js?v=1", "/manifest.webmanifest?v=8", "/imv-app-icon.svg?v=9", "/imv-logo.svg", "/apple-touch-icon-v9.png", "/pwa-192-v9.png"])
     ).catch(() => {})
   );
   self.skipWaiting();
