@@ -8,4 +8,7 @@ PWA de escalas, agenda, equipe, indisponibilidade e repertório do Ministério d
 - Render (deploy)
 
 ## Produção
-https://imv-louvor-v1.onrender.com
+https://app-louvor-imv.onrender.com
+
+## Repositório
+gabrielserafimss/app-louvor-imv
