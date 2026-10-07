@@ -1,0 +1,270 @@
+[
+  {
+    "id": "planning-0",
+    "name": "Aline Zem",
+    "functions": [
+      "Back Vocal"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-1",
+    "name": "Amanda Tereza",
+    "functions": [
+      "Back Vocal",
+      "Ministro"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-2",
+    "name": "André da Silva",
+    "functions": [
+      "Back Vocal",
+      "Ministro"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-3",
+    "name": "Ângelo Fialho",
+    "functions": [
+      "Baixo",
+      "Violão"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-4",
+    "name": "Anselmo Veloso",
+    "functions": [
+      "Back Vocal"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-5",
+    "name": "Caio Freitas",
+    "functions": [
+      "Datashow"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-6",
+    "name": "Carlos José",
+    "functions": [
+      "Datashow"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-7",
+    "name": "Cleidiene Martins",
+    "functions": [
+      "Ministro"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-8",
+    "name": "Enzo Henrique",
+    "functions": [
+      "Bateria"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-9",
+    "name": "Ester Verneck",
+    "functions": [
+      "Back Vocal"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-10",
+    "name": "Fernanda Rodrigues",
+    "functions": [
+      "Back Vocal"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-11",
+    "name": "Gabriel Serafim",
+    "functions": [
+      "Back Vocal",
+      "Baixo",
+      "Mesa de Som",
+      "Ministro",
+      "Violão"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-12",
+    "name": "Guilherme Pedro",
+    "functions": [
+      "Back Vocal",
+      "Mesa de Som"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-13",
+    "name": "João Henrico",
+    "functions": [
+      "Datashow"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-14",
+    "name": "Katia Aredes",
+    "functions": [],
+    "active": true
+  },
+  {
+    "id": "planning-15",
+    "name": "Leonardo Meneguelli",
+    "functions": [
+      "Baixo",
+      "Bateria",
+      "Mesa de Som"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-16",
+    "name": "Lucas Ladeira",
+    "functions": [
+      "Bateria"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-17",
+    "name": "Luiz Otávio Barbosa",
+    "functions": [
+      "Datashow",
+      "Mesa de Som"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-18",
+    "name": "Marcelo Áudio",
+    "functions": [
+      "Mesa de Som"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-19",
+    "name": "Marcos Zocateli",
+    "functions": [
+      "Bateria"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-20",
+    "name": "Maycon Roberto",
+    "functions": [
+      "Back Vocal",
+      "Ministro"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-21",
+    "name": "Milena Viana",
+    "functions": [
+      "Back Vocal"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-22",
+    "name": "Nilma Vieira",
+    "functions": [
+      "Back Vocal",
+      "Ministro"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-23",
+    "name": "Otávio Rodrigues",
+    "functions": [
+      "Baixo",
+      "Guitarra",
+      "Violão"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-24",
+    "name": "Rodrigo Zem",
+    "functions": [
+      "Back Vocal",
+      "Baixo",
+      "Guitarra",
+      "Violão"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-25",
+    "name": "Samuel Barbosa",
+    "functions": [
+      "Datashow"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-26",
+    "name": "Sofia Rodrigues",
+    "functions": [
+      "Datashow"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-27",
+    "name": "Suenens Ferreira",
+    "functions": [
+      "Back Vocal",
+      "Ministro"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-28",
+    "name": "Wagner Vasconcelos",
+    "functions": [
+      "Teclado"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-29",
+    "name": "Wellington Martins",
+    "functions": [
+      "Baixo",
+      "Guitarra",
+      "Teclado",
+      "Violão"
+    ],
+    "active": true
+  },
+  {
+    "id": "planning-30",
+    "name": "William Santos",
+    "functions": [
+      "Mesa de Som"
+    ],
+    "active": true
+  }
+]
